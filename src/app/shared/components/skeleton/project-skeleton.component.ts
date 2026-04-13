@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-project-skeleton',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="space-y-4 p-6 rounded-xl border border-ink/10 bg-paper animate-pulse">
       <div class="aspect-video bg-ink/5 rounded-lg"></div>
