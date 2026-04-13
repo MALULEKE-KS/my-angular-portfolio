@@ -64,3 +64,12 @@ export type Project = z.infer<typeof ProjectSchema>;
 export type CreateProjectRequest = z.infer<typeof CreateProjectRequestSchema>;
 export type Message = z.infer<typeof MessageSchema>;
 export type SendMessageRequest = z.infer<typeof SendMessageRequestSchema>;
+
+export const ApiErrorSchema = z.object({
+  code: z.string(),
+  message: z.string(),
+  requestId: z.string().optional(),
+});
+
+export type ApiError = z.infer<typeof ApiErrorSchema>;
+
