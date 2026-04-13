@@ -1,0 +1,8 @@
+{
+  "colors": {
+    "primary": "#b8860b",
+    "secondary": "#1a3a6e",
+    "error": "#9b1c1c",
+    "success": "#1a5c2e"
+  }
+}

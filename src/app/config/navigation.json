@@ -1,0 +1,8 @@
+{
+  "mainNav": [
+    { "href": "/", "label": "Home", "order": 1 },
+    { "href": "/about", "label": "About", "order": 2 },
+    { "href": "/projects", "label": "Projects", "order": 3 },
+    { "href": "/contact", "label": "Contact", "order": 4 }
+  ]
+}
