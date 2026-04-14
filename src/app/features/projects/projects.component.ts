@@ -44,7 +44,7 @@ import { LucideAngularModule, ExternalLink, Github, FolderOpen } from 'lucide-an
                 <div class="p-6">
                   <h3 class="text-xl font-bold font-serif text-ink mb-2 group-hover:text-gold transition-colors">{{ project.title }}</h3>
                   <p class="text-muted mb-4 line-clamp-3">{{ project.description }}</p>
-                  @if (project.techStack?.length) {
+                  @if (project.techStack.length) {
                     <div class="flex flex-wrap gap-2 mb-4">
                       @for (tag of project.techStack; track tag) {
                         <span class="px-3 py-1 text-xs bg-ink/5 text-muted rounded-full font-mono">{{ tag }}</span>
