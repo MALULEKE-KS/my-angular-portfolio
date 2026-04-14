@@ -108,7 +108,7 @@ const PROJECTS: Project[] = [
           <!-- Hero Image -->
           @if (project()!.imageUrl) {
             <div class="aspect-video rounded-2xl overflow-hidden mb-8 border border-ink/10">
-              <img [src]="project()!.imageUrl" [alt]="project()!.title" class="w-full h-full object-cover">
+              <img loading="lazy" [src]="project()!.imageUrl" [alt]="project()!.title" class="w-full h-full object-cover">
             </div>
           } @else {
             <div class="aspect-video rounded-2xl bg-gradient-to-br from-gold/20 to-amber-100/30 flex items-center justify-center mb-8 border border-ink/10">

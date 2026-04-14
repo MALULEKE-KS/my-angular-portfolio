@@ -12,7 +12,7 @@ import { LucideAngularModule, Github, ExternalLink } from 'lucide-angular';
                      transition-all duration-500 hover:-translate-y-1">
       <div class="aspect-[16/9] overflow-hidden bg-gradient-to-br from-gold/10 to-amber-100/20">
         @if (project.imageUrl) {
-          <img [src]="project.imageUrl" [alt]="project.title"
+          <img loading="lazy" [src]="project.imageUrl" [alt]="project.title"
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
         } @else {
           <div class="w-full h-full flex items-center justify-center">
