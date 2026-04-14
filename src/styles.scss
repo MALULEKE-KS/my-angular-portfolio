@@ -450,3 +450,92 @@
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* ═════════════════════════════════════════
+   HOVER MICRO-INTERACTIONS — R30, R35
+   ═════════════════════════════════════════ */
+
+/* Project cards — scale + shadow lift */
+.project-card {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(184, 134, 11, 0.15);
+}
+
+/* CTA buttons — press effect */
+.btn-primary {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Navigation links — underline grow */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--gold);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Tech stack pills — subtle lift */
+.tech-pill {
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.tech-pill:hover {
+  transform: translateY(-2px);
+  background-color: var(--ink) !important;
+  color: var(--paper) !important;
+}
+
+/* Icon buttons — rotate + scale */
+.icon-btn {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.icon-btn:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Glass card hover */
+.glass-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
+}
+
+/* Input focus glow */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+}
+
+/* Smooth page transitions — Angular Router animations */
+router-outlet + * {
+  animation: pageEnter 0.3s ease-out;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

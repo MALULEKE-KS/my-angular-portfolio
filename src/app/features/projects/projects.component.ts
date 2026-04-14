@@ -56,7 +56,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
 
               <div class="space-y-6">
                 @for (sys of ksdrillSystems; track sys.name) {
-                  <div class="rounded-2xl border-2 p-6 bg-white" [class]="'hover:border-' + sys.colorClass + '/60 transition-all border-' + sys.colorClass + '/30'">
+                  <div class="rounded-2xl border-2 p-6 bg-white project-card" [class]="'hover:border-' + sys.colorClass + '/60 transition-all border-' + sys.colorClass + '/30'">
                     <div class="flex items-start justify-between mb-4">
                       <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white text-sm bg-[#181717]">K</div>
@@ -131,7 +131,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
               </div>
               <p class="text-sm text-[#374151] mb-8 leading-relaxed">Digital growth organization. Web development, marketing campaigns, customer acquisition, and analytics. With Ngoneni Mponisi Forever.</p>
 
-              <div class="rounded-2xl border-2 border-[#FF6B6B]/30 bg-white p-6">
+              <div class="rounded-2xl border-2 border-[#FF6B6B]/30 bg-white p-6 project-card">
                 <div class="flex items-start justify-between mb-4">
                   <div>
                     <h3 class="font-bold text-[#181717] text-lg">Sunduza Architectural & Projects</h3>
@@ -163,7 +163,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
         <div class="max-w-2xl mx-auto">
           <h2 class="text-2xl font-bold font-serif mb-3">Want to build something?</h2>
           <p class="text-white/70 mb-8">Open to full-time, part-time, contract, and remote engineering opportunities.</p>
-          <a routerLink="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg min-h-[52px]">
+          <a routerLink="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg min-h-[52px] btn-primary">
             Get in Touch <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
           </a>
         </div>
