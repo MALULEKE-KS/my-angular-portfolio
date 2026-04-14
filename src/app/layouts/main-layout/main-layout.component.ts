@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, signal, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Menu, X } from 'lucide-angular';
+import { LucideAngularModule, Menu, X, ChevronUp } from 'lucide-angular';
 import navConfig from '../../config/navigation.json';
+import { BackToTopComponent } from '../../shared/components/back-to-top/back-to-top.component';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, LucideAngularModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, LucideAngularModule, BackToTopComponent],
   template: `
+    <!-- Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 z-[60] h-0.5 bg-transparent">
+      <div class="h-full bg-gold transition-all duration-100 ease-out"
+           [style.width.%]="scrollProgress()"></div>
+    </div>
+
     <div class="min-h-screen flex flex-col bg-paper text-ink">
 
       <!-- ── HEADER ── -->
@@ -154,15 +161,35 @@ import navConfig from '../../config/navigation.json';
           </div>
         </div>
       </footer>
+
+      <!-- Back to Top + Dark Mode -->
+      <app-back-to-top />
     </div>
   `,
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
   readonly navConfig = navConfig;
   readonly Menu = Menu;
   readonly X = X;
   mobileNavOpen = false;
   readonly currentYear = new Date().getFullYear();
+  scrollProgress = signal(0);
+
+  ngOnInit(): void {
+    this.updateScrollProgress();
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.updateScrollProgress();
+  }
+
+  private updateScrollProgress(): void {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    this.scrollProgress.set(Math.min(100, progress));
+  }
 
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
