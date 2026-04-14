@@ -24,7 +24,11 @@ import { inject } from '@angular/core';
             <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center text-white font-bold text-lg group-hover:bg-gold2 transition-colors shadow-sm">K</div>
             <div class="hidden sm:block">
               <div class="font-bold font-serif text-base group-hover:text-gold transition-colors leading-tight" [class.dark-text]="darkMode.isDark()" [class.light-text]="!darkMode.isDark()">Maluleke Kurhula</div>
-              <div class="text-xs" [class.dark-muted]="darkMode.isDark()" [class.light-muted]="!darkMode.isDark()">Software Engineer | AI Systems Architect</div>
+              <div class="flex flex-wrap gap-1 mt-0.5">
+                <img src="https://img.shields.io/badge/Software_Engineer-2563EB?style=for-the-badge&logo=code&logoColor=white" alt="Software Engineer" height="20" class="rounded-sm">
+                <img src="https://img.shields.io/badge/AI_Systems_Architect-OpenSource?style=for-the-badge&logo=openai&logoColor=white" alt="AI Systems Architect" height="20" class="rounded-sm">
+                <img src="https://img.shields.io/badge/BSc_CS_&_Mathematics-F6AD00?style=for-the-badge&logo=academia&logoColor=white" alt="BSc CS & Mathematics" height="20" class="rounded-sm">
+              </div>
             </div>
           </a>
 
