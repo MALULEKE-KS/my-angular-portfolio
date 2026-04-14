@@ -49,7 +49,7 @@ import { MessageService } from '../../core/services/message.service';
               <div>
                 <label for="name" class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-2">Name</label>
                 <input id="name" type="text" formControlName="name" autocomplete="name"
-                  class="w-full px-4 py-3 rounded-xl border-2 border-[#181717]/10 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none focus:border-[#B8860B] transition-colors"
+                  class="w-full px-4 py-3 rounded-xl border-2 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none transition-colors ' + (nameInvalid ? 'border-[#DC2626] bg-[#DC2626]/5' : 'border-[#181717]/10 focus:border-[#B8860B]')"
                   placeholder="Your name" />
                 @if (nameInvalid) {
                   <p class="text-[#DC2626] text-xs mt-1">Name is required (min 2 characters).</p>
@@ -62,7 +62,7 @@ import { MessageService } from '../../core/services/message.service';
                   placeholder="you@example.com" />
                 @if (emailInvalid) {
                   <p class="text-[#DC2626] text-xs mt-1">
-                    @if (email?.errors?.['required']) { Email is required. }
+                    (blur)="onBlur('email')" @if (email?.errors?.['required']) { Email is required. }
                     @if (email?.errors?.['email']) { Enter a valid email. }
                   </p>
                 }
@@ -71,7 +71,12 @@ import { MessageService } from '../../core/services/message.service';
                 <label for="message" class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-2">Message</label>
                 <textarea id="message" formControlName="message" rows="5"
                   class="w-full px-4 py-3 rounded-xl border-2 border-[#181717]/10 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none focus:border-[#B8860B] transition-colors resize-none"
-                  placeholder="Tell me about your project..."></textarea>
+                  placeholder="Tell me about your project..." (blur)="onBlur('message')"></textarea>
+                <div class="flex justify-end mt-1">
+                  <span class="text-xs text-[#374151]" [style.color]="(message!.value?.length || 0) > 1800 ? '#DC2626' : '#374151'">
+                    {{ message?.value?.length || 0 }} / 2000
+                  </span>
+                </div>
                 @if (messageInvalid) {
                   <p class="text-[#DC2626] text-xs mt-1">Message is required (min 10 characters).</p>
                 }
@@ -213,6 +218,11 @@ export class ContactComponent implements OnInit {
         if (this.countdownInterval) clearInterval(this.countdownInterval);
       }
     }, 1000);
+  }
+
+  onBlur(field: 'name' | 'email' | 'message'): void {
+    const ctrl = this.form.get(field);
+    if (ctrl) ctrl.markAsTouched();
   }
 
   readonly Send = Send;
