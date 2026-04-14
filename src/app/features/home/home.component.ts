@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { ScrollRevealStaggerDirective } from '../../shared/directives/scroll-reveal-stagger.directive';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Github, Linkedin, Mail, ExternalLink, ArrowRight, MapPin, GraduationCap, Code, Globe, Zap, Users } from 'lucide-angular';
@@ -14,10 +16,10 @@ const TYPING_LINES = [
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule, ScrollRevealDirective, ScrollRevealStaggerDirective],
   template: `
     <!-- HERO -->
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16 bg-paper relative overflow-hidden">
+    <section scrollReveal class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16 bg-paper relative overflow-hidden">
       <div class="absolute inset-0 pointer-events-none">
         <div class="absolute top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
       </div>

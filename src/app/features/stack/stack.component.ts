@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { ScrollRevealStaggerDirective } from '../../shared/directives/scroll-reveal-stagger.directive';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, ArrowRight } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
@@ -6,7 +8,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-stack',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, RouterLink],
+  imports: [CommonModule, LucideAngularModule, RouterLink, ScrollRevealDirective, ScrollRevealStaggerDirective],
   template: `
     <div class="min-h-screen bg-paper pt-20 pb-16">
       <section class="px-6 pb-16">

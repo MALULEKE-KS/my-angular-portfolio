@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { ScrollRevealStaggerDirective } from '../../shared/directives/scroll-reveal-stagger.directive';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, Shield, Zap } from 'lucide-angular';
 
 @Component({
   selector: 'app-tech-stack',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, ScrollRevealDirective, ScrollRevealStaggerDirective],
   template: `
     <div class="min-h-screen bg-paper py-16 px-4">
       <div class="max-w-6xl mx-auto">
