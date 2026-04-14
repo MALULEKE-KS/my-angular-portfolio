@@ -1,98 +1,235 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideAngularModule, ExternalLink, Github, FolderOpen } from 'lucide-angular';
+import { CommonModule } from '@angular/common';
+import { LucideAngularModule, ExternalLink, Github, FolderOpen, ArrowRight } from 'lucide-angular';
+import { ProjectCardComponent } from '../../shared/components/project-card/project-card.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule, ProjectCardComponent],
   template: `
-    <div class="min-h-screen bg-paper py-20 px-4">
+    <div class="min-h-screen bg-paper py-16 px-4">
       <div class="max-w-6xl mx-auto">
+
+        <!-- Page header -->
         <div class="text-center mb-16">
-          <h1 class="text-4xl sm:text-5xl font-bold font-serif text-ink mb-4">My Projects</h1>
-          <p class="text-lg text-muted">Production-grade systems across fintech, SaaS, healthcare, and enterprise</p>
+          <h1 class="text-4xl sm:text-5xl font-bold font-serif text-ink mb-3">Projects</h1>
+          <p class="text-lg text-muted max-w-2xl mx-auto">
+            Production-grade systems across fintech, SaaS, healthcare, and enterprise — designed and built one at a time.
+          </p>
         </div>
 
-        @if (isLoading()) {
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (i of skeletons; track i) {
-              <div class="animate-pulse">
-                <div class="h-48 bg-ink/5 rounded-xl mb-4"></div>
-                <div class="h-6 bg-ink/5 rounded w-3/4 mb-2"></div>
-                <div class="h-4 bg-ink/5 rounded w-full mb-2"></div>
-                <div class="h-4 bg-ink/5 rounded w-5/6"></div>
-              </div>
-            }
-          </div>
-        }
+        <!-- Portfolio projects grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 stagger-children">
+          @for (project of portfolioProjects; track project.id) {
+            <app-project-card [project]="project" />
+          }
+        </div>
 
-        @if (isSuccess()) {
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (project of projects(); track project.id) {
-              <div class="group relative overflow-hidden rounded-xl border border-ink/10 bg-paper hover:border-gold/40 hover:shadow-xl transition-all duration-300">
-                @if (project.imageUrl) {
-                  <div class="aspect-video overflow-hidden">
-                    <img [src]="project.imageUrl" [alt]="project.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                  </div>
-                } @else {
-                  <div class="aspect-video bg-gradient-to-br from-gold/20 to-amber-100/30 flex items-center justify-center">
-                    <lucide-icon [img]="FolderOpen" class="w-16 h-16 text-gold/40"></lucide-icon>
-                  </div>
-                }
-                <div class="p-6">
-                  <h3 class="text-xl font-bold font-serif text-ink mb-2 group-hover:text-gold transition-colors">{{ project.title }}</h3>
-                  <p class="text-muted mb-4 line-clamp-3">{{ project.description }}</p>
-                  @if (project.techStack.length) {
-                    <div class="flex flex-wrap gap-2 mb-4">
-                      @for (tag of project.techStack; track tag) {
-                        <span class="px-3 py-1 text-xs bg-ink/5 text-muted rounded-full font-mono">{{ tag }}</span>
-                      }
-                    </div>
-                  }
-                  <div class="flex items-center gap-4 pt-4 border-t border-ink/10">
-                    <a [routerLink]="['/projects', project.id]" class="text-sm font-medium text-gold hover:text-gold2 transition-colors">
-                      View Details
-                    </a>
-                    @if (project.liveUrl) {
-                      <a [href]="project.liveUrl" target="_blank" class="text-sm text-muted hover:text-ink transition-colors flex items-center gap-1">
-                        <lucide-icon [img]="ExternalLink" class="w-4 h-4"></lucide-icon>
-                        Live
-                      </a>
-                    }
-                    @if (project.repoUrl) {
-                      <a [href]="project.repoUrl" target="_blank" class="text-sm text-muted hover:text-ink transition-colors flex items-center gap-1">
-                        <lucide-icon [img]="Github" class="w-4 h-4"></lucide-icon>
-                        Code
-                      </a>
-                    }
-                  </div>
-                </div>
-              </div>
-            }
+        <!-- Flagship systems -->
+        <div class="mt-8">
+          <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold font-serif text-ink mb-3">Flagship Systems</h2>
+            <p class="text-muted text-base max-w-xl mx-auto">
+              Four platforms designed and being built with constitutional governance — one system at a time.
+            </p>
           </div>
-        }
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
+
+            <!-- FundsLink Academy -->
+            <div class="card p-7 relative overflow-hidden group">
+              <div class="absolute top-0 left-0 w-full h-1 bg-[#2563EB]"></div>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold font-serif text-ink group-hover:text-[#2563EB] transition-colors">
+                    FundsLink Academy
+                  </h3>
+                  <p class="text-xs font-semibold text-[#2563EB] mt-0.5">Angular · FastAPI · Python · PostgreSQL · LangChain</p>
+                </div>
+                <span class="badge badge-gold shrink-0">In Design</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-5">
+                National education funding platform — unifies bursaries, NSFAS, SETA funds into a single intelligent application flow with AI-powered eligibility matching. Target: Q3 2026.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="skill-tag text-xs">Angular 18</span>
+                <span class="skill-tag text-xs">FastAPI</span>
+                <span class="skill-tag text-xs">Python</span>
+                <span class="skill-tag text-xs">LangChain</span>
+                <span class="skill-tag text-xs">PostgreSQL</span>
+                <span class="skill-tag text-xs">ChromaDB</span>
+              </div>
+              <a href="https://github.com/KSDRILL-SA/fundslink-academy" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                View Repository
+                <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+              </a>
+            </div>
+
+            <!-- Maphophe Community -->
+            <div class="card p-7 relative overflow-hidden group">
+              <div class="absolute top-0 left-0 w-full h-1 bg-[#25D366]"></div>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold font-serif text-ink group-hover:text-[#25D366] transition-colors">
+                    Maphophe Community System
+                  </h3>
+                  <p class="text-xs font-semibold text-[#25D366] mt-0.5">Next.js · NextAuth.js · PostgreSQL · Prisma</p>
+                </div>
+                <span class="badge badge-gold shrink-0">In Design</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-5">
+                Digital governance platform for rural villages — structured announcements, trackable service requests, community voting, and ward-level reporting. Target: Q4 2026.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="skill-tag text-xs">Next.js 14</span>
+                <span class="skill-tag text-xs">NextAuth.js</span>
+                <span class="skill-tag text-xs">PostgreSQL</span>
+                <span class="skill-tag text-xs">Prisma</span>
+                <span class="skill-tag text-xs">PWA</span>
+              </div>
+              <a href="https://github.com/KSDRILL-SA/maphophe-community-system" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                View Repository
+                <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+              </a>
+            </div>
+
+            <!-- KSDRILL Reserve Bank -->
+            <div class="card p-7 relative overflow-hidden group">
+              <div class="absolute top-0 left-0 w-full h-1 bg-[#0A66C2]"></div>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold font-serif text-ink group-hover:text-[#0A66C2] transition-colors">
+                    KSDRILL Reserve Bank
+                  </h3>
+                  <p class="text-xs font-semibold text-[#0A66C2] mt-0.5">Angular · FastAPI · Python · PostgreSQL · Redis</p>
+                </div>
+                <span class="badge badge-gold shrink-0">In Design</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-5">
+                Discipline-driven savings banking — enforced deposit schedules, savings goals with real-time progress, interest tracking, and lock periods. Target: Q1 2027.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="skill-tag text-xs">Angular 18</span>
+                <span class="skill-tag text-xs">FastAPI</span>
+                <span class="skill-tag text-xs">BullMQ</span>
+                <span class="skill-tag text-xs">Redis</span>
+                <span class="skill-tag text-xs">PostgreSQL</span>
+              </div>
+              <a href="https://github.com/KSDRILL-SA/ksdrill-reserve-bank" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                View Repository
+                <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+              </a>
+            </div>
+
+            <!-- SyncUp -->
+            <div class="card p-7 relative overflow-hidden group">
+              <div class="absolute top-0 left-0 w-full h-1 bg-[#FF6F00]"></div>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold font-serif text-ink group-hover:text-[#FF6F00] transition-colors">
+                    SyncUp
+                  </h3>
+                  <p class="text-xs font-semibold text-[#FF6F00] mt-0.5">Next.js · NextAuth.js · PostgreSQL · BullMQ</p>
+                </div>
+                <span class="badge badge-gold shrink-0">In Design</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-5">
+                Creator collaboration platform — template-based pitch flows, 10-message negotiation limit, privacy controls, and drop-based subscription management. Target: Q2 2027.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="skill-tag text-xs">Next.js 14</span>
+                <span class="skill-tag text-xs">NextAuth.js</span>
+                <span class="skill-tag text-xs">BullMQ</span>
+                <span class="skill-tag text-xs">Redis</span>
+                <span class="skill-tag text-xs">PostgreSQL</span>
+              </div>
+              <a href="https://github.com/KSDRILL-SA/syncup" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                View Repository
+                <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Companies -->
+        <div class="mt-16 pt-12 border-t border-ink/10">
+          <div class="text-center mb-8">
+            <h2 class="text-xl font-bold font-serif text-ink mb-2">My Companies</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div class="card p-6 text-center">
+              <div class="w-10 h-10 rounded-lg bg-[#2563EB]/10 flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#2563EB] font-bold text-sm">K</span>
+              </div>
+              <h3 class="font-bold font-serif text-ink mb-1">KSDRILL-SA</h3>
+              <p class="text-xs text-muted mb-3">Technology Studio</p>
+              <p class="text-sm text-muted leading-relaxed mb-4">
+                Full-stack engineering, AI integration, and production deployment across multiple industries.
+              </p>
+              <a href="https://github.com/KSDRILL-SA" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                <lucide-icon [img]="Github" class="w-4 h-4"></lucide-icon>
+                View Organization
+              </a>
+            </div>
+            <div class="card p-6 text-center">
+              <div class="w-10 h-10 rounded-lg bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#FF6B6B] font-bold text-sm">G</span>
+              </div>
+              <h3 class="font-bold font-serif text-ink mb-1">GrowthCore Solutions</h3>
+              <p class="text-xs text-muted mb-3">Digital Growth Agency</p>
+              <p class="text-sm text-muted leading-relaxed mb-4">
+                Web development, marketing campaigns, customer acquisition, and analytics.
+              </p>
+              <a href="https://github.com/GrowthCore-Solutions" target="_blank" rel="noopener noreferrer"
+                 class="link-arrow text-sm">
+                <lucide-icon [img]="Github" class="w-4 h-4"></lucide-icon>
+                View Organization
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   `,
 })
-export class ProjectsComponent implements OnInit {
-  projects = signal([
+export class ProjectsComponent {
+  readonly ExternalLink = ExternalLink;
+  readonly Github = Github;
+  readonly FolderOpen = FolderOpen;
+  readonly ArrowRight = ArrowRight;
+
+  portfolioProjects = [
     {
       id: '1',
       title: 'my-angular-portfolio',
-      description: 'This portfolio showcasing fullstack architecture skills with Angular, Next.js, and modern web technologies.',
-      techStack: ['Angular', 'TypeScript', 'Tailwind CSS', 'Lucide Icons'],
-      liveUrl: 'https://my-angular-portfolio-ksdrill.zocomputer.io',
+      description: 'Angular portfolio with standalone components, lazy loading, Tailwind CSS, and custom CSS for heavy visual work. Live on Vercel.',
+      techStack: ['Angular 18', 'TypeScript', 'Tailwind CSS', 'Custom CSS', 'Lucide Icons'],
+      liveUrl: 'https://my-angular-portfolio.vercel.app',
       repoUrl: 'https://github.com/MALULEKE-KS/my-angular-portfolio',
       imageUrl: null,
       featured: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     },
     {
       id: '2',
+      title: 'my-nextjs-portfolio',
+      description: 'Next.js portfolio with NextAuth, API routes, and server-side rendering. Live on Vercel.',
+      techStack: ['Next.js 14', 'TypeScript', 'NextAuth.js', 'Tailwind CSS'],
+      liveUrl: 'https://my-nextjs-portfolio.vercel.app',
+      repoUrl: 'https://github.com/MALULEKE-KS/my-nextjs-portfolio',
+      imageUrl: null,
+      featured: true,
+    },
+    {
+      id: '3',
       title: 'GrowthCore Solutions',
       description: 'Digital growth agency platform with AI-powered analytics, automation tools, and enterprise-grade scalability.',
       techStack: ['Next.js', 'FastAPI', 'PostgreSQL', 'Redis', 'LangChain'],
@@ -100,66 +237,15 @@ export class ProjectsComponent implements OnInit {
       repoUrl: 'https://github.com/GrowthCore-Solutions',
       imageUrl: null,
       featured: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: '3',
-      title: 'Healthcare Management System',
-      description: 'HIPAA-compliant healthcare platform with patient records, appointment scheduling, and telemedicine features.',
-      techStack: ['Django', 'React', 'PostgreSQL', 'Docker', 'AWS'],
-      liveUrl: null,
-      repoUrl: null,
-      imageUrl: null,
-      featured: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     },
     {
       id: '4',
-      title: 'Fintech Payment Platform',
-      description: 'Real-time payment processing system with multi-currency support, fraud detection, and banking integrations.',
-      techStack: ['Node.js', 'FastAPI', 'MongoDB', 'Redis', 'Kubernetes'],
-      liveUrl: null,
-      repoUrl: null,
-      imageUrl: null,
-      featured: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: '5',
       title: 'AI RAG Pipeline',
       description: 'Retrieval-augmented generation system with semantic search, embeddings, and intelligent document processing.',
       techStack: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'Next.js'],
-      liveUrl: null,
       repoUrl: 'https://github.com/MALULEKE-KS/ai-rag-pipeline',
       imageUrl: null,
-      featured: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: '6',
-      title: 'SaaS Analytics Dashboard',
-      description: 'Real-time analytics platform with custom dashboards, automated reporting, and business intelligence features.',
-      techStack: ['Next.js', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Vercel'],
-      liveUrl: null,
-      repoUrl: null,
-      imageUrl: null,
       featured: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     },
-  ]);
-  isLoading = signal(false);
-  isError = signal(false);
-  isSuccess = signal(true);
-  skeletons = [1, 2, 3];
-
-  ngOnInit(): void {}
-  
-  readonly ExternalLink = ExternalLink;
-  readonly Github = Github;
-  readonly FolderOpen = FolderOpen;
+  ];
 }
