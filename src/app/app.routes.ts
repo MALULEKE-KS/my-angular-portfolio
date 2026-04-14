@@ -11,6 +11,7 @@ export const routes: Routes = [
       { path: 'projects', loadComponent: () => import('./features/projects/projects.component').then(m => m.ProjectsComponent) },
       { path: 'projects/:id', loadComponent: () => import('./features/projects/project-detail.component').then(m => m.ProjectDetailComponent) },
       { path: 'contact', loadComponent: () => import('./features/contact/contact.component').then(m => m.ContactComponent) },
+      { path: 'tech-stack', loadComponent: () => import('./features/tech-stack/tech-stack.component').then(m => m.TechStackComponent) },
     ]
   },
   { path: 'login', loadComponent: () => import('./features/auth/login.component').then(m => m.LoginComponent) },

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Cloud, Terminal, GitBranch, Zap, Layers, Bot, Server, Box, Shield, Gauge, Container, Github, Rocket, BarChart3, Eye, FlaskConical, CloudCog, TestTube, Briefcase, GraduationCap, Award, Users, TrendingUp, Star, Coffee, Heart, Send, Linkedin, Twitter, Youtube, Mail, Phone } from 'lucide-angular';
+import {
+  LucideAngularModule, MapPin, ArrowRight, Code, Server, Bot, Cloud, Github, Rocket,
+  Coffee, Heart, Send, Linkedin, Mail, Zap,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-home',
@@ -37,13 +40,14 @@ import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Cl
           </a>
         </div>
         <div class="flex justify-center gap-4">
-          <a href="https://github.com/MALULEKE-KS" target="_blank" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all"><lucide-icon [img]="Github" class="w-5 h-5"></lucide-icon></a>
-          <a href="https://linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all"><lucide-icon [img]="Linkedin" class="w-5 h-5"></lucide-icon></a>
-          <a href="mailto:kurhula04s&#64;gmail&#46;com" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all"><lucide-icon [img]="Mail" class="w-5 h-5"></lucide-icon></a>
+          <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all" aria-label="GitHub"><lucide-icon [img]="Github" class="w-5 h-5"></lucide-icon></a>
+          <a href="https://linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" rel="noopener" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all" aria-label="LinkedIn"><lucide-icon [img]="Linkedin" class="w-5 h-5"></lucide-icon></a>
+          <a href="mailto:kurhula04s@gmail.com" class="p-3 rounded-full bg-ink/5 hover:bg-gold hover:text-paper transition-all" aria-label="Email"><lucide-icon [img]="Mail" class="w-5 h-5"></lucide-icon></a>
         </div>
       </div>
     </section>
-    <section class="py-16 px-4 bg-ink text-paper">
+
+    <section class="py-16 px-4 bg-ink text-paper" aria-label="Statistics">
       <div class="container mx-auto max-w-5xl">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div><div class="text-4xl font-bold font-serif text-gold mb-2">50+</div><div class="text-muted">Projects Delivered</div></div>
@@ -53,7 +57,8 @@ import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Cl
         </div>
       </div>
     </section>
-    <section class="py-20 px-4 bg-paper">
+
+    <section class="py-20 px-4 bg-paper" aria-label="Tech stack">
       <div class="container mx-auto max-w-6xl">
         <div class="text-center mb-12">
           <h2 class="text-3xl sm:text-4xl font-bold font-serif text-ink mb-4">Tech Stack</h2>
@@ -62,57 +67,43 @@ import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Cl
         <div class="mb-10">
           <h3 class="text-lg font-semibold text-gold mb-4 flex items-center gap-2"><lucide-icon [img]="Code" class="w-5 h-5"></lucide-icon> Frontend</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Angular</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">React</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Next.js</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">TypeScript</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Tailwind CSS</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">HTML/CSS</span>
+            @for (tech of frontend; track tech) {
+              <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">{{ tech }}</span>
+            }
           </div>
         </div>
         <div class="mb-10">
           <h3 class="text-lg font-semibold text-gold mb-4 flex items-center gap-2"><lucide-icon [img]="Server" class="w-5 h-5"></lucide-icon> Backend</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Node.js</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Python</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">FastAPI</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Django</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">PostgreSQL</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">MongoDB</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">GraphQL</span>
+            @for (tech of backend; track tech) {
+              <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">{{ tech }}</span>
+            }
           </div>
         </div>
         <div class="mb-10">
           <h3 class="text-lg font-semibold text-gold mb-4 flex items-center gap-2"><lucide-icon [img]="Cloud" class="w-5 h-5"></lucide-icon> DevOps & Cloud</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">AWS</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Docker</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">GitHub Actions</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Linux</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Nginx</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Vercel</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Cloudflare</span>
+            @for (tech of devops; track tech) {
+              <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">{{ tech }}</span>
+            }
           </div>
         </div>
         <div>
           <h3 class="text-lg font-semibold text-gold mb-4 flex items-center gap-2"><lucide-icon [img]="Bot" class="w-5 h-5"></lucide-icon> AI & Emerging Tech</h3>
           <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">LangChain</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">OpenAI</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">RAG Systems</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">NextAuth</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Clerk</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Stripe</span>
-            <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">Prisma</span>
+            @for (tech of ai; track tech) {
+              <span class="px-4 py-2 bg-ink text-paper rounded-lg text-sm font-mono hover:bg-gold transition-colors cursor-default">{{ tech }}</span>
+            }
           </div>
         </div>
       </div>
     </section>
-    <section class="py-20 px-4 bg-ink text-paper">
+
+    <section class="py-20 px-4 bg-ink text-paper" aria-label="About preview">
       <div class="container mx-auto max-w-4xl text-center">
         <h2 class="text-3xl sm:text-4xl font-bold font-serif mb-6">About Me</h2>
         <p class="text-lg text-muted mb-8 leading-relaxed">
-          I'm a passionate software engineer with a strong foundation in both frontend and backend development. 
+          I'm a passionate software engineer with a strong foundation in both frontend and backend development.
           I specialize in building end-to-end solutions that are not only functional but also user-friendly and scalable.
           My approach combines technical expertise with a deep understanding of business requirements to deliver impactful results.
         </p>
@@ -128,41 +119,22 @@ import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Cl
 })
 export class HomeComponent {
   readonly MapPin = MapPin;
-  readonly Globe = Globe;
   readonly ArrowRight = ArrowRight;
   readonly Code = Code;
-  readonly Cpu = Cpu;
-  readonly Database = Database;
-  readonly Cloud = Cloud;
-  readonly Terminal = Terminal;
-  readonly GitBranch = GitBranch;
-  readonly Zap = Zap;
-  readonly Layers = Layers;
-  readonly Bot = Bot;
   readonly Server = Server;
-  readonly Box = Box;
-  readonly Shield = Shield;
-  readonly Gauge = Gauge;
-  readonly TestTube = TestTube;
-  readonly Container = Container;
+  readonly Bot = Bot;
+  readonly Cloud = Cloud;
   readonly Github = Github;
   readonly Rocket = Rocket;
-  readonly BarChart3 = BarChart3;
-  readonly Eye = Eye;
-  readonly FlaskConical = FlaskConical;
-  readonly CloudCog = CloudCog;
-  readonly Briefcase = Briefcase;
-  readonly GraduationCap = GraduationCap;
-  readonly Award = Award;
-  readonly Users = Users;
-  readonly TrendingUp = TrendingUp;
-  readonly Star = Star;
   readonly Coffee = Coffee;
   readonly Heart = Heart;
   readonly Send = Send;
   readonly Linkedin = Linkedin;
-  readonly Twitter = Twitter;
-  readonly Youtube = Youtube;
   readonly Mail = Mail;
-  readonly Phone = Phone;
+  readonly Zap = Zap;
+
+  frontend = ['Angular', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS'];
+  backend = ['Node.js', 'Python', 'FastAPI', 'Django', 'PostgreSQL', 'MongoDB', 'GraphQL'];
+  devops = ['AWS', 'Docker', 'GitHub Actions', 'Linux', 'Nginx', 'Vercel', 'Cloudflare'];
+  ai = ['LangChain', 'OpenAI', 'RAG Systems', 'NextAuth', 'Clerk', 'Stripe', 'Prisma'];
 }
