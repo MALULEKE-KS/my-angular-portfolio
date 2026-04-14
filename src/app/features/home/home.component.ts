@@ -19,7 +19,7 @@ const TYPING_LINES = [
   imports: [CommonModule, RouterLink, LucideAngularModule, ScrollRevealDirective, ScrollRevealStaggerDirective],
   template: `
     <!-- HERO -->
-    <section scrollReveal class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16 bg-paper relative overflow-hidden">
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16 bg-paper relative overflow-hidden">
       <div class="absolute inset-0 pointer-events-none">
         <div class="absolute top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
       </div>
@@ -37,10 +37,10 @@ const TYPING_LINES = [
         <p class="text-lg text-[#374151] mb-8 max-w-xl mx-auto leading-relaxed">
           Designing and building practical digital systems that solve real-world challenges.
         </p>
-        <!-- Typing -->
+        <!-- Rotating tagline -->
         <div class="h-14 flex items-center justify-center mb-10">
-          <p class="text-lg sm:text-xl font-semibold text-[#181717] font-mono">
-            {{ currentLine() }}<span class="animate-pulse text-blue-600">|</span>
+          <p class="text-lg sm:text-xl font-semibold text-[#374151] font-mono transition-opacity duration-300">
+            {{ currentLine() }}
           </p>
         </div>
         <!-- CTAs -->
@@ -252,24 +252,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   capabilities = ['SaaS', 'Fintech', 'AI & ML', 'E-commerce', 'Healthcare', 'Enterprise', 'EdTech', 'GovTech'];
 
   currentLine = signal(TYPING_LINES[0]);
+  currentOpacity = signal(1);
   private timer: ReturnType<typeof setInterval> | null = null;
-private lineIdx = 0;
-  private typingForward = true;
+  private lineIdx = 0;
 
   ngOnInit(): void {
     this.timer = setInterval(() => {
-      const line = TYPING_LINES[this.lineIdx];
-      if (this.typingForward) {
-        this.currentLine.set(line.substring(0, Math.min(this.currentLine().length + 3, line.length)));
-        if (this.currentLine() === line) this.typingForward = false;
-      } else {
-        this.currentLine.set(this.currentLine().substring(0, Math.max(0, this.currentLine().length - 2)));
-        if (this.currentLine() === '') {
-          this.typingForward = true;
-          this.lineIdx = (this.lineIdx + 1) % TYPING_LINES.length;
-        }
-      }
-    }, 80);
+      // Fade out
+      this.currentOpacity.set(0);
+      setTimeout(() => {
+        this.lineIdx = (this.lineIdx + 1) % TYPING_LINES.length;
+        this.currentLine.set(TYPING_LINES[this.lineIdx]);
+        // Fade in
+        this.currentOpacity.set(1);
+      }, 400);
+    }, 3500);
   }
 
   ngOnDestroy(): void {
