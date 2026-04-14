@@ -1,133 +1,155 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Menu, X } from 'lucide-angular';
 import navConfig from '../../config/navigation.json';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, LucideAngularModule],
   template: `
     <div class="min-h-screen flex flex-col bg-paper text-ink">
-      
-      <!-- HEADER -->
+
+      <!-- ── HEADER ── -->
       <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-lg border-b border-ink/10">
-        <div class="container mx-auto px-4 h-20 flex items-center justify-between gap-4">
-          
+        <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
+
           <!-- Brand -->
           <a routerLink="/" class="flex items-center gap-3 group">
-            <div class="w-12 h-12 rounded-xl bg-gold flex items-center justify-center text-paper font-bold text-xl group-hover:bg-gold2 transition-colors">
-              M
+            <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center
+                        text-paper font-bold text-lg group-hover:bg-gold2 transition-colors shadow-sm">
+              K
             </div>
             <div class="hidden sm:block">
-              <div class="font-bold font-serif text-ink text-lg group-hover:text-gold transition-colors">Maluleke Kurhula</div>
+              <div class="font-bold font-serif text-ink text-base group-hover:text-gold transition-colors leading-tight">
+                Maluleke Kurhula
+              </div>
               <div class="text-xs text-muted">Software Engineer & AI Architect</div>
             </div>
           </a>
-          
+
           <!-- Desktop Nav -->
-          <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+          <nav class="hidden lg:flex items-center gap-7" aria-label="Main navigation">
             @for (item of navConfig.mainNav; track item.href) {
-              <a [routerLink]="item.href" routerLinkActive="text-gold" 
-                 class="text-base font-medium text-ink hover:text-gold transition-colors relative group">
+              <a [routerLink]="item.href" routerLinkActive="text-gold"
+                 class="text-sm font-medium text-ink hover:text-gold transition-colors relative group">
                 {{ item.label }}
-                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300 rounded-full"></span>
               </a>
             }
           </nav>
-          
+
           <!-- CTA + Mobile Toggle -->
-          <div class="flex items-center gap-4">
-            <a routerLink="/contact" 
-               class="hidden sm:inline-flex items-center justify-center px-5 py-2 bg-gold text-paper text-sm font-bold rounded-lg hover:bg-gold2 transition-colors min-h-[44px]">
+          <div class="flex items-center gap-3">
+            <a routerLink="/contact"
+               class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 bg-gold text-paper text-sm font-bold rounded-lg
+                      hover:bg-gold2 transition-colors min-h-[44px] shadow-sm">
               Let's Talk
             </a>
-            
-            <!-- Mobile hamburger -->
             <button (click)="toggleMobileNav()"
-                    class="lg:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-ink/5 transition-colors">
-              <svg *ngIf="!mobileNavOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-              <svg *ngIf="mobileNavOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-              </svg>
+                    class="lg:hidden flex items-center justify-center w-11 h-11 rounded-lg
+                           hover:bg-ink/5 transition-colors"
+                    [attr.aria-label]="mobileNavOpen ? 'Close menu' : 'Open menu'">
+              @if (mobileNavOpen) {
+                <lucide-icon [img]="X" class="w-5 h-5"></lucide-icon>
+              } @else {
+                <lucide-icon [img]="Menu" class="w-5 h-5"></lucide-icon>
+              }
             </button>
           </div>
         </div>
-        
+
         <!-- Mobile Nav -->
         @if (mobileNavOpen) {
           <div class="lg:hidden border-t border-ink/10 bg-paper">
-            <div class="container mx-auto px-4 py-4 space-y-2">
+            <div class="max-w-6xl mx-auto px-4 py-4 space-y-1">
               @for (item of navConfig.mainNav; track item.href) {
                 <a [routerLink]="item.href" routerLinkActive="text-gold"
-                   class="block py-3 px-4 text-base font-medium text-ink hover:text-gold hover:bg-ink/5 rounded-lg transition-colors"
+                   class="block py-3 px-4 text-sm font-medium text-ink hover:text-gold
+                          hover:bg-ink/5 rounded-lg transition-colors"
                    (click)="mobileNavOpen = false">
                   {{ item.label }}
                 </a>
               }
-              <a routerLink="/contact" 
-                 class="block py-3 px-4 text-base font-bold text-paper bg-gold rounded-lg text-center mt-4">
+              <a routerLink="/contact"
+                 class="block py-3 px-4 text-sm font-bold text-paper bg-gold rounded-lg text-center mt-3">
                 Let's Talk
               </a>
             </div>
           </div>
         }
       </header>
-      
-      <!-- MAIN CONTENT -->
+
+      <!-- ── MAIN CONTENT ── -->
       <main class="flex-1">
         <router-outlet />
       </main>
-      
-      <!-- FOOTER -->
+
+      <!-- ── FOOTER ── -->
       <footer class="bg-ink text-paper py-16">
-        <div class="container mx-auto px-4">
-          <div class="grid md:grid-cols-4 gap-12 mb-12">
-            
+        <div class="max-w-6xl mx-auto px-4">
+          <div class="grid md:grid-cols-4 gap-10 mb-12">
+
             <!-- Brand -->
             <div class="md:col-span-2">
               <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-gold flex items-center justify-center text-paper font-bold text-xl">M</div>
+                <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center text-paper font-bold text-lg">
+                  K
+                </div>
                 <div>
-                  <div class="font-bold font-serif text-lg">Maluleke Kurhula Success</div>
-                  <div class="text-xs text-muted">African Roots | Global Impact</div>
+                  <div class="font-bold font-serif text-base">Maluleke Kurhula Success</div>
+                  <div class="text-xs text-paper/50">African Roots | Global Impact</div>
                 </div>
               </div>
-              <p class="text-muted max-w-md">
+              <p class="text-paper/60 text-sm leading-relaxed max-w-sm">
                 Software Engineer and AI Systems Architect building practical digital systems that solve real-world challenges.
               </p>
+              <div class="flex items-center gap-3 mt-4">
+                <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener noreferrer"
+                   class="text-paper/50 hover:text-gold transition-colors text-sm">GitHub</a>
+                <span class="text-paper/20">·</span>
+                <a href="https://za.linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" rel="noopener noreferrer"
+                   class="text-paper/50 hover:text-gold transition-colors text-sm">LinkedIn</a>
+                <span class="text-paper/20">·</span>
+                <a href="mailto:kurhula04s@gmail.com"
+                   class="text-paper/50 hover:text-gold transition-colors text-sm">Email</a>
+              </div>
             </div>
-            
-            <!-- Quick Links -->
+
+            <!-- Navigation -->
             <div>
-              <h4 class="font-bold mb-4">Navigation</h4>
+              <h4 class="font-bold text-sm mb-4 text-paper/80 uppercase tracking-wider">Navigation</h4>
               <div class="space-y-2">
                 @for (item of navConfig.mainNav; track item.href) {
-                  <a [routerLink]="item.href" class="block text-muted hover:text-gold transition-colors">{{ item.label }}</a>
+                  <a [routerLink]="item.href" class="block text-paper/50 hover:text-gold transition-colors text-sm">
+                    {{ item.label }}
+                  </a>
                 }
               </div>
             </div>
-            
-            <!-- Contact -->
+
+            <!-- Connect -->
             <div>
-              <h4 class="font-bold mb-4">Connect</h4>
+              <h4 class="font-bold text-sm mb-4 text-paper/80 uppercase tracking-wider">Connect</h4>
               <div class="space-y-2">
-                <a [href]="'mailto:' + contact.email" class="block text-muted hover:text-gold transition-colors">Email</a>
-                <a [href]="contact.whatsapp" target="_blank" class="block text-muted hover:text-gold transition-colors">WhatsApp</a>
-                <a [href]="contact.linkedin" target="_blank" class="block text-muted hover:text-gold transition-colors">LinkedIn</a>
-                <a [href]="contact.github" target="_blank" class="block text-muted hover:text-gold transition-colors">GitHub</a>
+                <a href="mailto:kurhula04s@gmail.com" class="block text-paper/50 hover:text-gold transition-colors text-sm">Email</a>
+                <a href="https://wa.me/27640708649" target="_blank" rel="noopener noreferrer"
+                   class="block text-paper/50 hover:text-gold transition-colors text-sm">WhatsApp</a>
+                <a href="https://za.linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank"
+                   rel="noopener noreferrer" class="block text-paper/50 hover:text-gold transition-colors text-sm">LinkedIn</a>
+                <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener noreferrer"
+                   class="block text-paper/50 hover:text-gold transition-colors text-sm">GitHub</a>
               </div>
             </div>
           </div>
-          
-          <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-muted text-sm">
+
+          <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p class="text-paper/40 text-xs">
               © {{ currentYear }} Maluleke Kurhula Success. All rights reserved.
             </p>
-            <p class="text-muted text-sm">
-              Built with Angular + Tailwind CSS
+            <p class="text-paper/40 text-xs">
+              Built with Angular · Tailwind CSS · Custom CSS
             </p>
           </div>
         </div>
@@ -137,16 +159,11 @@ import navConfig from '../../config/navigation.json';
 })
 export class MainLayoutComponent {
   readonly navConfig = navConfig;
+  readonly Menu = Menu;
+  readonly X = X;
   mobileNavOpen = false;
   readonly currentYear = new Date().getFullYear();
-  
-  contact = {
-    email: 'kurhula04s@gmail.com',
-    whatsapp: 'https://wa.me/27640708649',
-    linkedin: 'https://za.linkedin.com/in/kurhula-success-maluleke-32153231a',
-    github: 'https://github.com/MALULEKE-KS'
-  };
-  
+
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
   }
