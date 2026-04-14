@@ -1,10 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Send, CheckCircle, AlertCircle, Loader } from 'lucide-angular';
 import { MessageService } from '../../core/services/message.service';
+import { ErrorHandlerService } from '../../core/services/error-handler.service';
+import { SendMessageRequest } from '../../core/models/api.generated';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +20,7 @@ import { MessageService } from '../../core/services/message.service';
         </div>
 
         @if (isSuccess()) {
-          <div class="mb-8 p-6 rounded-xl bg-green-500/10 border border-green-500/30 text-center">
+          <div class="mb-8 p-6 rounded-xl bg-green/10 border border-green/30 text-center">
             <lucide-icon [img]="CheckCircle" class="w-12 h-12 text-green mx-auto mb-4"></lucide-icon>
             <h3 class="text-xl font-bold text-green mb-2">Message Sent!</h3>
             <p class="text-muted">I'll get back to you within 24-48 hours.</p>
@@ -30,7 +31,7 @@ import { MessageService } from '../../core/services/message.service';
         }
 
         @if (isError()) {
-          <div class="mb-8 p-6 rounded-xl bg-red-500/10 border border-red-500/30">
+          <div class="mb-8 p-6 rounded-xl bg-red/10 border border-red/30">
             <lucide-icon [img]="AlertCircle" class="w-10 h-10 text-red mx-auto mb-4"></lucide-icon>
             <p class="text-center text-red font-medium">{{ errorMessage() }}</p>
           </div>
@@ -109,51 +110,76 @@ import { MessageService } from '../../core/services/message.service';
 })
 export class ContactComponent implements OnInit {
   private messageService = inject(MessageService);
-  
+  private errorHandler = inject(ErrorHandlerService);
+
   form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     message: new FormControl('', [Validators.required, Validators.minLength(10)]),
   });
-  
+
   isSubmitting = signal(false);
   isError = signal(false);
   isSuccess = signal(false);
   isRateLimited = signal(false);
   countdownSeconds = signal(0);
   errorMessage = signal('Something went wrong. Please try again.');
-  
+
   private countdownInterval: ReturnType<typeof setInterval> | null = null;
-  
+
   get name() { return this.form.get('name'); }
   get email() { return this.form.get('email'); }
   get message() { return this.form.get('message'); }
   get nameInvalid() { return this.name?.invalid && this.name?.touched; }
   get emailInvalid() { return this.email?.invalid && this.email?.touched; }
   get messageInvalid() { return this.message?.invalid && this.message?.touched; }
-  
+
   ngOnInit(): void {}
-  
+
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
-    
+
+    const { name, email, message } = this.form.value;
+    const request: SendMessageRequest = {
+      name: name!.trim(),
+      email: email!.trim(),
+      content: message!.trim(),
+    };
+
     this.isSubmitting.set(true);
     this.isError.set(false);
-    
-    // Simulate message sending since backend isn't connected
-    setTimeout(() => {
-      this.isSubmitting.set(false);
-      this.isSuccess.set(true);
-      this.form.reset();
-    }, 1500);
+
+    this.messageService.sendMessage(request).subscribe({
+      next: () => {
+        this.isSubmitting.set(false);
+        this.isSuccess.set(true);
+        this.form.reset();
+      },
+      error: (err) => {
+        this.isSubmitting.set(false);
+        this.isError.set(true);
+        const resolved = this.errorHandler.resolve({
+          code: err?.error?.code ?? 'INTERNAL_SERVER_ERROR',
+          message: err?.error?.message,
+          requestId: err?.error?.requestId,
+        });
+        this.errorMessage.set(
+          resolved.message || 'Something went wrong. Please try again.'
+        );
+        if (resolved.action === 'disable-button-countdown') {
+          this.handleRateLimit(30);
+        }
+      },
+    });
   }
-  
+
   resetForm(): void {
     this.isSuccess.set(false);
+    this.isError.set(false);
     this.form.reset();
   }
-  
+
   private handleRateLimit(seconds: number): void {
     this.isRateLimited.set(true);
     this.countdownSeconds.set(seconds);
@@ -166,7 +192,7 @@ export class ContactComponent implements OnInit {
       }
     }, 1000);
   }
-  
+
   readonly Send = Send;
   readonly CheckCircle = CheckCircle;
   readonly AlertCircle = AlertCircle;

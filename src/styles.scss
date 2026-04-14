@@ -1,13 +1,6 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────
-   CUSTOM CSS — R22, R27 (max 100 lines each)
-   ───────────────────────────────────────── */
-@import "./styles/animations.css";
-@import "./styles/components.css";
-@import "./styles/gradients.css";
-
-/* ─────────────────────────────────────────
    GLOBALS — R12 body text minimum, R13 prefers-reduced-motion
    ───────────────────────────────────────── */
 @layer base {
@@ -94,7 +87,7 @@
 }
 
 /* ─────────────────────────────────────────
-   PREFERES-REDUCTION — R13
+   PREFERS-REDUCTION — R13
    ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
