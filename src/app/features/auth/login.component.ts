@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LucideAngularModule, LogIn } from 'lucide-angular';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -44,6 +44,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   isSubmitting = signal(false);
   readonly LogIn = LogIn;
@@ -58,7 +59,10 @@ export class LoginComponent {
       const { email, password } = this.form.value;
       this.isSubmitting.set(true);
       this.auth.login(email!, password!).subscribe({
-        next: () => this.router.navigate(['/dashboard']),
+        next: () => {
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/dashboard';
+          this.router.navigateByUrl(returnUrl);
+        },
         error: () => this.isSubmitting.set(false)
       });
     }
