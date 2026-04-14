@@ -11,19 +11,17 @@ import { inject } from '@angular/core';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, LucideAngularModule],
   template: `
-    <div class="min-h-screen flex flex-col"
-         [class.dark-bg]="darkMode.isDark()"
-         [class.light-bg]="!darkMode.isDark()">
+    <div class="min-h-screen flex flex-col bg-paper text-ink dark:bg-[#0e0e0e] dark:text-[#e5e7eb]">
 
       <!-- HEADER -->
-      <header class="sticky top-0 z-50 backdrop-blur-lg border-b"
+      <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-lg border-ink/10 dark:bg-[#0e0e0e]/95 dark:border-white/10"
               [class.dark-header]="darkMode.isDark()"
               [class.light-header]="!darkMode.isDark()">
         <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
           <a routerLink="/" class="flex items-center gap-3 group">
             <div class="w-11 h-11 rounded-xl bg-gold flex items-center justify-center text-white font-bold text-lg group-hover:bg-gold2 transition-colors shadow-sm">K</div>
             <div class="hidden sm:block">
-              <div class="font-bold font-serif text-base group-hover:text-gold transition-colors leading-tight" [class.dark-text]="darkMode.isDark()" [class.light-text]="!darkMode.isDark()">Maluleke Kurhula</div>
+              <div class="font-bold font-serif text-base group-hover:text-gold transition-colors leading-tight text-ink dark:text-white">Maluleke Kurhula</div>
               <div class="flex flex-wrap gap-1 mt-0.5">
                 <img src="https://img.shields.io/badge/Software_Engineer-2563EB?style=for-the-badge&logo=code&logoColor=white" alt="Software Engineer" height="20" class="rounded-sm">
                 <img src="https://img.shields.io/badge/AI_Systems_Architect-OpenSource?style=for-the-badge&logo=openai&logoColor=white" alt="AI Systems Architect" height="20" class="rounded-sm">
@@ -47,7 +45,7 @@ import { inject } from '@angular/core';
           <div class="flex items-center gap-3">
             <button (click)="darkMode.toggle()"
                     class="flex items-center justify-center w-10 h-10 rounded-xl hover:bg-white/10 transition-colors"
-                    [attr.aria-label]="darkMode.isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+                    >
               @if (darkMode.isDark()) {
                 <lucide-icon [img]="Sun" class="w-5 h-5 text-amber-500"></lucide-icon>
               } @else {
