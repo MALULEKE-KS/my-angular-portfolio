@@ -1,9 +1,10 @@
-import { Component, HostListener, signal, OnInit } from '@angular/core';
+import { Component, HostListener, signal, OnInit, inject } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Menu, X, ChevronUp } from 'lucide-angular';
+import { LucideAngularModule, Menu, X, ChevronUp, Sun, Moon } from 'lucide-angular';
 import navConfig from '../../config/navigation.json';
 import { BackToTopComponent } from '../../shared/components/back-to-top/back-to-top.component';
+import { DarkModeService } from '../../core/services/dark-mode.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -49,6 +50,15 @@ import { BackToTopComponent } from '../../shared/components/back-to-top/back-to-
 
           <!-- CTA + Mobile Toggle -->
           <div class="flex items-center gap-3">
+            <button (click)="darkMode.toggle()"
+                    class="w-11 h-11 rounded-lg hover:bg-ink/5 transition-colors flex items-center justify-center"
+                    [attr.aria-label]="darkMode.isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+              @if (darkMode.isDark()) {
+                <lucide-icon [img]="Sun" class="w-5 h-5 text-gold"></lucide-icon>
+              } @else {
+                <lucide-icon [img]="Moon" class="w-5 h-5 text-ink"></lucide-icon>
+              }
+            </button>
             <a routerLink="/contact"
                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 bg-gold text-paper text-sm font-bold rounded-lg
                       hover:bg-gold2 transition-colors min-h-[44px] shadow-sm">
@@ -171,7 +181,11 @@ export class MainLayoutComponent implements OnInit {
   readonly navConfig = navConfig;
   readonly Menu = Menu;
   readonly X = X;
+  readonly Sun = Sun;
+  readonly Moon = Moon;
   mobileNavOpen = false;
+  darkMode = inject(DarkModeService);  // Angular inject() in field (standalone)
+  private readonly _darkModeSvc = inject(DarkModeService);
   readonly currentYear = new Date().getFullYear();
   scrollProgress = signal(0);
 
