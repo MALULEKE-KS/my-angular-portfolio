@@ -27,6 +27,9 @@ const TYPING_LINES = [
         <p class="text-sm font-medium text-blue-600 tracking-widest uppercase mb-4 font-mono">
           Maluleke Kurhula Success
         </p>
+        <div class="w-36 h-36 rounded-2xl overflow-hidden border-4 border-blue-600 shadow-xl mx-auto mb-6">
+          <img src="/assets/profile.jpeg" alt="Kurhula Success Maluleke" class="w-full h-full object-cover" loading="eager" />
+        </div>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#181717] mb-4 leading-tight font-serif">
           Software Engineer<br>
           <span class="text-blue-600">AI Systems Architect</span>
