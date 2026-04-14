@@ -250,7 +250,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   currentLine = signal(TYPING_LINES[0]);
   private timer: ReturnType<typeof setInterval> | null = null;
-  private lineIdx = 0;
+private lineIdx = 0;
   private typingForward = true;
 
   ngOnInit(): void {
