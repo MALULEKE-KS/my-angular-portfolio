@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────
+   CUSTOM CSS — R22, R27 (max 100 lines each)
+   ───────────────────────────────────────── */
+@import "./styles/animations.css";
+@import "./styles/components.css";
+@import "./styles/gradients.css";
+
+/* ─────────────────────────────────────────
+   GLOBALS — R12 body text minimum, R13 prefers-reduced-motion
+   ───────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px; /* R12 minimum */
+    line-height: 1.65;
+    color: var(--ink);
+    background-color: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Touch targets — R11 */
+  button,
+  a,
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+
+    @media (min-width: 768px) {
+      min-height: 32px;
+      min-width: 32px;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — Design tokens
+   ───────────────────────────────────────── */
+:root {
+  --ink:    #0e0e0e;
+  --paper:  #f5f0e8;
+  --gold:   #b8860b;
+  --gold2:  #d4a017;
+  --amber:  #e8a020;
+  --red:    #9b1c1c;
+  --green:  #1a5c2e;
+  --muted:  #5a5040;
+}
+
+/* ─────────────────────────────────────────
+   TAILWIND THEME EXTENSIONS
+   ───────────────────────────────────────── */
+@theme {
+  --color-ink:    var(--ink);
+  --color-paper:  var(--paper);
+  --color-gold:   var(--gold);
+  --color-gold2:  var(--gold2);
+  --color-amber:  var(--amber);
+  --color-red:    var(--red);
+  --color-green:  var(--green);
+  --color-muted:  var(--muted);
+
+  --font-sans:    'IBM Plex Sans', sans-serif;
+  --font-serif:   'Playfair Display', serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+
+  --radius-2xl: 1rem;
+}
+
+/* ─────────────────────────────────────────
+   PREFERES-REDUCTION — R13
+   ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
