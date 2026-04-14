@@ -618,3 +618,21 @@ router-outlet + * {
 .dark .bg-green-500\/10 { background-color: rgba(34, 197, 94, 0.1) !important; }
 .dark .border-green-500\/30 { border-color: rgba(34, 197, 94, 0.3) !important; }
 .dark .border-\[\#181717\]/10 { border-color: rgba(245,240,232,0.1) !important; }
+
+
+/* Dark mode structural classes */
+.dark-bg     { background-color: #0e0e0e; color: #f5f0e8; }
+.light-bg    { background-color: #f5f0e8; color: #0e0e0e; }
+.dark-header { background-color: rgba(14,14,14,0.95); border-color: rgba(255,255,255,0.1); }
+.light-header { background-color: rgba(245,240,232,0.95); border-color: rgba(14,14,14,0.1); }
+.dark-footer { background-color: #0e0e0e; color: #f5f0e8; }
+.dark-text   { color: #f5f0e8; }
+.light-text  { color: #0e0e0e; }
+.dark-muted  { color: rgba(245,240,232,0.5); }
+.light-muted { color: #5a5040; }
+.dark-mobile-link { color: rgba(245,240,232,0.7); }
+.dark-mobile-link:hover { color: #f5f0e8; background-color: rgba(255,255,255,0.05); }
+.light-mobile-link { color: #0e0e0e; }
+.light-mobile-link:hover { color: #b8860b; background-color: rgba(14,14,14,0.05); }
+.dark-border { border-color: rgba(255,255,255,0.1); background-color: #0e0e0e; }
+.light-border { border-color: rgba(14,14,14,0.1); background-color: #f5f0e8; }

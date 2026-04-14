@@ -28,5 +28,5 @@ export const routes: Routes = [
       { path: 'profile', loadComponent: () => import('./features/dashboard/profile/profile-editor.component').then(m => m.ProfileEditorComponent) },
     ]
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent) }
 ];
