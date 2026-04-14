@@ -9,6 +9,8 @@ export const routes: Routes = [
       { path: '', loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent) },
       { path: 'about', loadComponent: () => import('./features/about/about.component').then(m => m.AboutComponent) },
       { path: 'projects', loadComponent: () => import('./features/projects/projects.component').then(m => m.ProjectsComponent) },
+      { path: 'stack', loadComponent: () => import('./features/stack/stack.component').then(m => m.StackComponent) },
+      { path: 'philosophy', loadComponent: () => import('./features/philosophy/philosophy.component').then(m => m.PhilosophyComponent) },
       { path: 'projects/:id', loadComponent: () => import('./features/projects/project-detail.component').then(m => m.ProjectDetailComponent) },
       { path: 'contact', loadComponent: () => import('./features/contact/contact.component').then(m => m.ContactComponent) },
       { path: 'tech-stack', loadComponent: () => import('./features/tech-stack/tech-stack.component').then(m => m.TechStackComponent) },

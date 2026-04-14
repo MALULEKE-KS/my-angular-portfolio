@@ -2,8 +2,9 @@
   "mainNav": [
     { "href": "/", "label": "Home", "order": 1 },
     { "href": "/about", "label": "About", "order": 2 },
-    { "href": "/tech-stack", "label": "Tech Stack", "order": 3 },
-    { "href": "/projects", "label": "Projects", "order": 4 },
-    { "href": "/contact", "label": "Contact", "order": 5 }
+    { "href": "/projects", "label": "Projects", "order": 3 },
+    { "href": "/stack", "label": "Stack", "order": 4 },
+    { "href": "/philosophy", "label": "Philosophy", "order": 5 },
+    { "href": "/contact", "label": "Contact", "order": 6 }
   ]
 }

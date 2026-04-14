@@ -52,7 +52,9 @@
             "buildTarget": "my-angular-portfolio:build:development",
             "allowedHosts": [
               "my-angular-portfolio-ksdrill.zocomputer.io",
-              "p1.proxy.zo.computer", "ts4.zocomputer.io"
+              "p1.proxy.zo.computer",
+              "ts4.zocomputer.io",
+              "ts5.zocomputer.io"
             ]
           },
           "configurations": {

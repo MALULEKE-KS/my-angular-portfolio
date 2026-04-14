@@ -1,257 +1,206 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Server, Database, Bot, Layers, GraduationCap, Award, Users } from 'lucide-angular';
+import { LucideAngularModule, MapPin, GraduationCap, Bot, Code, Server, Database, Globe, ArrowRight, ExternalLink, Mail } from 'lucide-angular';
 
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [CommonModule, RouterLink, LucideAngularModule],
   template: `
-    <div class="min-h-screen bg-paper">
+    <!-- HERO -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16 bg-paper relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      </div>
+      <div class="relative z-10 max-w-3xl mx-auto">
+        <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-blue-500 shadow-xl mx-auto mb-8">
+          <img src="/assets/profile.jpeg" alt="Kurhula Success Maluleke" class="w-full h-full object-cover">
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-bold font-serif text-[#181717] mb-3">Kurhula Success Maluleke</h1>
+        <p class="text-lg text-blue-600 font-semibold mb-3">Software Engineer designing AI-driven systems</p>
+        <div class="flex flex-wrap justify-center gap-3 text-sm text-[#374151] mb-8">
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-[#181717]/5 rounded-lg">
+            <lucide-icon [img]="GraduationCap" class="w-4 h-4"></lucide-icon>
+            BSc CS & Mathematics — Final Year
+          </span>
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-[#181717]/5 rounded-lg">
+            <lucide-icon [img]="MapPin" class="w-4 h-4"></lucide-icon>
+            Johannesburg, South Africa
+          </span>
+          <span class="flex items-center gap-1.5 px-3 py-1.5 bg-[#181717]/5 rounded-lg">
+            <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
+            kurhula04s&#64;gmail.com
+          </span>
+        </div>
+        <a routerLink="/contact"
+           class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg min-h-[52px]">
+          Get in Touch <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
+        </a>
+      </div>
+    </section>
 
-      <!-- Hero -->
-      <section class="relative py-20 px-4 bg-paper overflow-hidden">
-        <div class="absolute inset-0 bg-grid opacity-40 pointer-events-none"></div>
-        <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-gold/5 to-transparent pointer-events-none"></div>
-        <div class="relative max-w-4xl mx-auto text-center">
-          <div class="w-36 h-36 rounded-full overflow-hidden border-[3px] border-gold mx-auto mb-8 shadow-[0_0_30px_rgba(184,134,11,0.2)]">
-            <img src="/assets/profile.jpeg" alt="Kurhula Success Maluleke" class="w-full h-full object-cover">
-          </div>
-          <h1 class="text-4xl sm:text-5xl font-bold font-serif text-ink mb-3">
-            Maluleke Kurhula Success
-          </h1>
-          <p class="text-lg font-medium text-gold mb-4">
-            Software Engineer & AI Systems Architect
+    <!-- BIO -->
+    <section class="py-16 px-6 bg-[#181717] text-white">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest uppercase text-blue-400 mb-6 font-mono">About Me</h2>
+        <div class="space-y-5 text-[#e5e7eb] leading-relaxed text-base">
+          <p>
+            I am a <strong class="text-white">Software Engineer designing AI-driven systems</strong> — a final year BSc Computer Science & Mathematics student building practical digital systems through my organizations. My focus is creating reliable platforms that solve complex challenges in education, finance, community infrastructure, and artificial intelligence.
           </p>
-          <div class="flex items-center justify-center gap-4 text-muted text-sm flex-wrap">
-            <span class="flex items-center gap-1.5">
-              <lucide-icon [img]="MapPin" class="w-4 h-4"></lucide-icon>
-              Johannesburg, South Africa
-            </span>
-            <span class="text-ink/20">|</span>
-            <span class="flex items-center gap-1.5">
-              <lucide-icon [img]="Globe" class="w-4 h-4"></lucide-icon>
-              BSc Computer Science & Mathematics — Final Year
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bio -->
-      <section class="py-16 px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl font-bold font-serif text-ink mb-6 heading-accent">About Me</h2>
-          <div class="space-y-5 text-muted leading-relaxed text-base">
-            <p>
-              Building practical digital systems that solve real-world challenges. I am a
-              <strong class="text-ink">Software Engineer</strong> designing AI-driven systems —
-              a <strong class="text-ink">final year BSc Computer Science & Mathematics</strong>
-              student building practical digital systems through my companies.
-            </p>
-            <p>
-              My focus is creating <strong class="text-ink">reliable platforms</strong> that solve
-              complex challenges in education, finance, community infrastructure, and artificial intelligence.
-              Where most engineers write code, I reason through systems — Computer Science shapes how I
-              architect, Mathematics shapes how I think.
-            </p>
-            <p>
-              That combination produces software that is not just functional, but structurally sound
-              from the ground up. I architect and build distributed fullstack systems with AI-native
-              integration — from pixel-perfect UIs with Angular and Next.js, to designing robust backends
-              with FastAPI and Python.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Architecture Approach -->
-      <section class="py-16 px-4 bg-ink text-paper">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-bold font-serif mb-10 text-center heading-accent-center text-paper">
-            Architecture Approach
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-6">
-              <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center mb-4">
-                <lucide-icon [img]="Layers" class="w-5 h-5 text-gold"></lucide-icon>
-              </div>
-              <h3 class="text-base font-bold mb-2">Distributed Systems</h3>
-              <p class="text-sm text-paper/70 leading-relaxed">
-                Multi-backend architecture — Next.js gateway, FastAPI for AI workloads, Django for enterprise logic.
-                Systems designed first, coded second.
-              </p>
-            </div>
-            <div class="glass-card p-6">
-              <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center mb-4">
-                <lucide-icon [img]="Bot" class="w-5 h-5 text-gold"></lucide-icon>
-              </div>
-              <h3 class="text-base font-bold mb-2">AI-Native Design</h3>
-              <p class="text-sm text-paper/70 leading-relaxed">
-                RAG pipelines, LangChain integration, embeddings, and semantic search built into
-                the core architecture — not bolted on afterwards.
-              </p>
-            </div>
-            <div class="glass-card p-6">
-              <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center mb-4">
-                <lucide-icon [img]="Database" class="w-5 h-5 text-gold"></lucide-icon>
-              </div>
-              <h3 class="text-base font-bold mb-2">Hybrid Data Layer</h3>
-              <p class="text-sm text-paper/70 leading-relaxed">
-                PostgreSQL for relational data, MongoDB for documents, Redis for caching and queues —
-                the right database for each data shape.
-              </p>
-            </div>
-            <div class="glass-card p-6">
-              <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center mb-4">
-                <lucide-icon [img]="Server" class="w-5 h-5 text-gold"></lucide-icon>
-              </div>
-              <h3 class="text-base font-bold mb-2">Production-Grade</h3>
-              <p class="text-sm text-paper/70 leading-relaxed">
-                TypeScript end-to-end, comprehensive testing, CI/CD automation, and constitutional
-                governance (10 constitutions, 355 rules) for team process.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tech Stack -->
-      <section class="py-16 px-4 bg-paper">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-bold font-serif text-ink mb-10 text-center heading-accent-center">
-            Full Stack Expertise
-          </h2>
-          <div class="space-y-8">
-
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="Code" class="w-4 h-4"></lucide-icon> Frontend
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">TypeScript</span>
-                <span class="skill-tag">Next.js 14</span>
-                <span class="skill-tag">Angular 18</span>
-                <span class="skill-tag">Tailwind CSS</span>
-                <span class="skill-tag">Custom CSS</span>
-              </div>
-            </div>
-
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="Server" class="w-4 h-4"></lucide-icon> Backend
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-tag">Next.js API</span>
-                <span class="skill-tag">FastAPI</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">Django</span>
-                <span class="skill-tag">REST APIs</span>
-                <span class="skill-tag">GraphQL</span>
-              </div>
-            </div>
-
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="Database" class="w-4 h-4"></lucide-icon> Database
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-tag">PostgreSQL</span>
-                <span class="skill-tag">Prisma ORM</span>
-                <span class="skill-tag">MongoDB</span>
-                <span class="skill-tag">Redis</span>
-              </div>
-            </div>
-
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="Bot" class="w-4 h-4"></lucide-icon> AI & ML
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-tag">LangChain</span>
-                <span class="skill-tag">OpenAI API</span>
-                <span class="skill-tag">RAG Systems</span>
-                <span class="skill-tag">ChromaDB</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- Experience & Education -->
-      <section class="py-16 px-4 bg-ink/5">
-        <div class="max-w-4xl mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="Award" class="w-4 h-4"></lucide-icon> Experience
-              </h3>
-              <div class="space-y-4">
-                <div class="card p-5">
-                  <div class="text-sm text-muted mb-1">2020 – Present</div>
-                  <div class="font-semibold text-ink">Founder & Lead Engineer</div>
-                  <div class="text-sm text-muted">KSDRILL-SA — Technology Studio</div>
-                </div>
-                <div class="card p-5">
-                  <div class="text-sm text-muted mb-1">2023 – Present</div>
-                  <div class="font-semibold text-ink">Co-Founder</div>
-                  <div class="text-sm text-muted">GrowthCore Solutions — Digital Growth Agency</div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 class="text-base font-semibold text-gold mb-4 flex items-center gap-2">
-                <lucide-icon [img]="GraduationCap" class="w-4 h-4"></lucide-icon> Education
-              </h3>
-              <div class="space-y-4">
-                <div class="card p-5">
-                  <div class="text-sm text-muted mb-1">2022 – 2026 (Expected)</div>
-                  <div class="font-semibold text-ink">BSc Computer Science & Mathematics</div>
-                  <div class="text-sm text-muted">University of Johannesburg / UNISA</div>
-                </div>
-                <div class="card p-5">
-                  <div class="text-sm text-muted mb-1">Self-Directed</div>
-                  <div class="font-semibold text-ink">Systems Architecture & AI Engineering</div>
-                  <div class="text-sm text-muted">FastAPI · LangChain · RAG · PostgreSQL · Docker</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <section class="py-16 px-4 bg-gold text-paper">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl font-bold font-serif mb-4">Let's Build Something Together</h2>
-          <p class="text-base mb-8 text-paper/90">
-            Ready to architect your next production-grade system?
+          <p>
+            Where most engineers write code, I reason through systems — Computer Science shapes how I architect, Mathematics shapes how I think. That combination produces software that is not just functional, but structurally sound from the ground up.
           </p>
-          <a routerLink="/contact" class="btn-cta" style="background: var(--ink); color: var(--paper);">
-            Get in Touch
-            <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
-          </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div>
+    <!-- DEVELOPMENT PROCESS -->
+    <section class="py-16 px-6 bg-paper">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold font-serif text-[#181717] text-center mb-2">Development Process</h2>
+        <p class="text-center text-[#374151] text-sm mb-10">Sequential. One system at a time. No compromises.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          @for (phase of devPhases; track phase.n) {
+            <div class="relative p-5 rounded-xl border-2 border-[#181717]/10 bg-white hover:border-blue-500/40 transition-all">
+              <div class="absolute -top-3 left-4 w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold flex items-center justify-center">{{ phase.n }}</div>
+              <h3 class="font-bold text-[#181717] mt-1 mb-2">{{ phase.name }}</h3>
+              <p class="text-sm text-[#374151]">{{ phase.focus }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ORGANIZATIONS -->
+    <section class="py-16 px-6 bg-[#f8f9fa]">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold font-serif text-[#181717] text-center mb-2">Organizations</h2>
+        <p class="text-center text-[#374151] text-sm mb-10">Not companies — GitHub organizations housing platform systems.</p>
+        <div class="space-y-6">
+          <!-- KSDRILL-SA -->
+          <div class="p-6 rounded-2xl border-2 border-blue-500/20 bg-white">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-14 h-14 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-2xl shrink-0 shadow-lg">K</div>
+              <div>
+                <h3 class="font-bold text-[#181717] text-xl mb-1">KSDRILL-SA</h3>
+                <p class="text-xs text-[#374151] font-mono mb-2">github.com/KSDRILL-SA</p>
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-md font-medium">Technology Organization</span>
+              </div>
+            </div>
+            <p class="text-sm text-[#374151] mb-4 leading-relaxed">
+              Full-stack engineering, AI integration, and production-grade platform development across multiple industries — fintech, healthcare, education, and enterprise.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              @for (tag of ['AI Systems', 'Fintech', 'SaaS', 'Enterprise Automation', 'EdTech', 'GovTech']; track tag) {
+                <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md font-mono font-medium">{{ tag }}</span>
+              }
+            </div>
+            <p class="text-xs text-[#374151] italic">All 4 flagship platforms are housed under this organization.</p>
+          </div>
+          <!-- GrowthCore Solutions -->
+          <div class="p-6 rounded-2xl border-2 border-[#FF6B6B]/20 bg-white">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-14 h-14 rounded-xl bg-[#FF6B6B] flex items-center justify-center text-white font-bold text-2xl shadow-lg">G</div>
+              <div>
+                <h3 class="font-bold text-[#181717] text-xl mb-1">GrowthCore Solutions</h3>
+                <p class="text-xs text-[#374151] font-mono mb-2">github.com/GrowthCore-Solutions</p>
+                <span class="px-2 py-1 bg-red-50 text-[#FF6B6B] text-xs rounded-md font-medium">Digital Growth Organization</span>
+              </div>
+            </div>
+            <p class="text-sm text-[#374151] mb-3 leading-relaxed">
+              Web development, marketing campaigns, customer acquisition, and analytics to drive measurable growth. With Ngoneni Mponisi Forever.
+            </p>
+            <p class="text-xs text-[#374151] italic">Sunduza Architectural & Projects (Pty) Ltd digital presence managed under this organization.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENGINEERING CAPABILITIES -->
+    <section class="py-16 px-6 bg-paper">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold font-serif text-[#181717] text-center mb-2">Engineering Capabilities</h2>
+        <p class="text-center text-[#374151] text-sm mb-10">Skills transfer across industries — the common thread is scalable architecture + AI integration.</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b-2 border-[#181717]">
+                <th class="text-left py-3 px-4 font-bold text-[#181717]">Industry</th>
+                <th class="text-left py-3 px-4 font-bold text-[#181717]">Applications</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of capabilities; track row.industry) {
+                <tr class="border-b border-[#181717]/10 hover:bg-blue-50/30 transition-colors">
+                  <td class="py-3 px-4 font-semibold text-blue-600">{{ row.industry }}</td>
+                  <td class="py-3 px-4 text-[#374151]">{{ row.apps }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPEN TO -->
+    <section class="py-16 px-6 bg-[#181717] text-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-2xl font-bold font-serif mb-8">Open To</h2>
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          @for (type of ['Full-time', 'Part-time', 'Contract', 'Remote']; track type) {
+            <span class="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-full">{{ type }}</span>
+          }
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left mb-8">
+          @for (col of openToCols; track col.title) {
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <h3 class="font-bold text-blue-400 text-sm mb-2 uppercase tracking-wide">{{ col.title }}</h3>
+              <p class="text-sm text-white/70 leading-relaxed">{{ col.content }}</p>
+            </div>
+          }
+        </div>
+        <a routerLink="/contact"
+           class="inline-flex items-center gap-2 px-8 py-4 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-all shadow-lg min-h-[52px]">
+          Let's Talk <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
+        </a>
+      </div>
+    </section>
   `,
 })
 export class AboutComponent {
   readonly MapPin = MapPin;
-  readonly Globe = Globe;
-  readonly ArrowRight = ArrowRight;
+  readonly GraduationCap = GraduationCap;
+  readonly Bot = Bot;
   readonly Code = Code;
   readonly Server = Server;
   readonly Database = Database;
-  readonly Bot = Bot;
-  readonly Layers = Layers;
-  readonly GraduationCap = GraduationCap;
-  readonly Award = Award;
-  readonly Users = Users;
+  readonly Globe = Globe;
+  readonly ArrowRight = ArrowRight;
+  readonly ExternalLink = ExternalLink;
+  readonly Mail = Mail;
+
+  devPhases = [
+    { n: 1, name: 'Architecture', focus: 'Full platform architecture & user flows' },
+    { n: 2, name: 'Design', focus: 'System modules & database structures' },
+    { n: 3, name: 'Interface', focus: 'Complete interface designs' },
+    { n: 4, name: 'Development', focus: 'Sequential, one system at a time' },
+  ];
+
+  capabilities = [
+    { industry: 'SaaS', apps: 'Multi-tenant platforms, subscription management, analytics dashboards' },
+    { industry: 'Fintech', apps: 'Payment processing, banking systems, fraud detection, microfinance' },
+    { industry: 'AI & ML', apps: 'Prediction engines, recommendation systems, intelligent agents, RAG pipelines' },
+    { industry: 'E-commerce', apps: 'Marketplaces, inventory management, order fulfillment' },
+    { industry: 'Healthcare', apps: 'Patient portals, scheduling systems, telemedicine platforms' },
+    { industry: 'Enterprise', apps: 'Internal tools, workflow automation, data visualization' },
+    { industry: 'EdTech', apps: 'Learning platforms, student management, funding systems' },
+    { industry: 'GovTech', apps: 'Citizen services, digital governance, transportation coordination' },
+  ];
+
+  openToCols = [
+    { title: 'Engineering Roles', content: 'Full-stack · Backend · AI/ML · Systems Architecture' },
+    { title: 'Industries', content: 'Fintech · Healthcare · EdTech · SaaS · GovTech · AI' },
+    { title: 'Collaboration', content: 'Open source · Partnerships · Social impact' },
+  ];
 }
