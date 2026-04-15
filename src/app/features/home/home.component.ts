@@ -102,10 +102,10 @@ const TYPING_LINES = [
     <section class="py-16 px-6 bg-paper">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-xs font-bold tracking-widest uppercase text-blue-600 mb-2 text-center font-mono">
-          System Design & Architecture Phase — Q2 2026
+          Systems Architecture — Q2 2026
         </h2>
         <p class="text-center text-[#374151] text-sm mb-10">
-          Deliberate, phased engineering — executed one system at a time.
+          Sequential, production-grade engineering — one system at a time.
         </p>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           @for (phase of phases; track phase.label) {
@@ -137,7 +137,7 @@ const TYPING_LINES = [
               </div>
             </div>
             <p class="text-sm text-[#374151] mb-4 leading-relaxed">
-              Technology organization. 4 flagship systems in design phase — AI systems, fintech, SaaS, enterprise automation.
+              Technology studio. 4 flagship systems in active build phase — FundsLink, Maphophe, ReserveBank, SyncUp.
             </p>
             <div class="flex flex-wrap gap-2 mb-5">
               @for (tag of ['AI-Integrated Systems', 'Fintech', 'SaaS', 'GovTech']; track tag) {
@@ -234,25 +234,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   readonly Users = Users;
 
   atAGlance = [
-    { icon: this.Zap, text: 'Building Next.js portfolio + systems architecture' },
-    { icon: this.Users, text: 'Exploring AI integration, LangChain, RAG pipelines' },
-    { icon: this.GraduationCap, text: 'Studying BSc Computer Science & Mathematics — Final Year' },
-    { icon: this.MapPin, text: 'Based in South Africa' },
-    { icon: this.Code, text: 'Interested in Web Dev + AI, Fintech, EdTech, GovTech' },
-    { icon: this.Mail, text: 'Contact kurhula04s@gmail.com' },
+    { icon: this.Zap, text: 'Building 4 production-grade flagship systems' },
+    { icon: this.Users, text: 'Full-stack + AI-Integrated architecture' },
+    { icon: this.MapPin, text: 'Based in South Africa · Remote-first engineering' },
+    { icon: this.Code, text: 'Fintech · EdTech · GovTech · SaaS platforms' },
+    { icon: this.Mail, text: 'kurhula04s@gmail.com' },
   ];
 
   phases = [
-    { label: 'System Design', status: 'COMPLETE', detail: 'All 4 flagship systems fully designed', css: 'border-green-500 bg-green-500/5' },
-    { label: 'Architecture', status: 'LOCKED', detail: 'Stack decisions finalized · Modules defined', css: 'border-green-500 bg-green-500/5' },
-    { label: 'Build Phase', status: 'STARTING Q2', detail: 'Sequential — one system at a time', css: 'border-orange-500 bg-orange-500/5' },
-    { label: 'Strategy', status: 'DESIGN→BUILD→SHIP', detail: 'No forward dependencies · Deep execution', css: 'border-blue-500 bg-blue-500/5' },
+    { label: 'FundsLink Academy', status: 'BUILDING', detail: 'EdFinance platform · PostgreSQL + LangChain', css: 'border-blue-500 bg-blue-500/5' },
+    { label: 'Maphophe System', status: 'NEXT', detail: 'GovTech platform · Next.js + Prisma', css: 'border-blue-500/50 bg-blue-500/5' },
+    { label: 'KSDRILL Reserve Bank', status: 'Q4 2026', detail: 'Fintech savings platform · Angular + FastAPI', css: 'border-blue-500/30 bg-blue-500/5' },
+    { label: 'SyncUp Platform', status: 'Q1 2027', detail: 'Creator collaboration · Next.js + BullMQ', css: 'border-blue-500/20 bg-blue-500/5' },
   ];
 
   liveWork = [
-    { label: 'Next.js Portfolio', url: 'my-nextjs-portfolio.vercel.app', href: 'https://my-nextjs-portfolio.vercel.app' },
-    { label: 'Next.js Portfolio Source', url: 'github.com/MALULEKE-KS/my-nextjs-portfolio', href: 'https://github.com/MALULEKE-KS/my-nextjs-portfolio' },
-    { label: 'Angular Portfolio Source', url: 'github.com/MALULEKE-KS/my-angular-portfolio', href: 'https://github.com/MALULEKE-KS/my-angular-portfolio' },
+    { label: 'FundsLink Academy', url: 'fundslink.ksdrill-sa.co.za', href: 'https://github.com/KSDRILL-SA/fundslink-academy' },
+    { label: 'Maphophe Community', url: 'maphophe.ksdrill-sa.co.za', href: 'https://github.com/KSDRILL-SA/maphophe-community-system' },
+    { label: 'KSDRILL Reserve Bank', url: 'bank.ksdrill-sa.co.za', href: 'https://github.com/KSDRILL-SA/ksdrill-reserve-bank' },
+    { label: 'SyncUp Platform', url: 'syncup.ksdrill-sa.co.za', href: 'https://github.com/KSDRILL-SA/syncup' },
   ];
 
   capabilities = ['SaaS', 'Fintech', 'AI & ML', 'E-commerce', 'Healthcare', 'Enterprise', 'EdTech', 'GovTech'];
