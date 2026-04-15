@@ -121,3 +121,12 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* Hero profile image */
+.profile-img-hover {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.profile-img-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.3);
+}

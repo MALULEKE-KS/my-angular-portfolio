@@ -27,9 +27,15 @@ const TYPING_LINES = [
         <p class="text-sm font-medium text-blue-600 tracking-widest uppercase mb-4 font-mono">
           Maluleke Kurhula Success
         </p>
-        <div class="w-36 h-36 rounded-2xl overflow-hidden border-4 border-blue-600 shadow-xl mx-auto mb-6">
-          <img src="/assets/profile.jpeg" alt="Kurhula Success Maluleke" class="w-full h-full object-cover" loading="eager" />
-        </div>
+        <div class="relative mx-auto mb-8 w-44 h-44 sm:w-52 sm:h-52">
+            <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-blue-600 via-purple-500 to-blue-400 opacity-40 blur-sm"></div>
+            <div class="relative w-full h-full rounded-[1.75rem] overflow-hidden border-4 border-blue-600 shadow-2xl ring-4 ring-blue-600/30 profile-img-hover">
+              <img src="/assets/profile.jpeg" alt="Kurhula Success Maluleke" class="w-full h-full object-cover object-top" loading="eager" />
+            </div>
+            <div class="absolute -top-2 -right-2 flex items-center justify-center w-7 h-7 bg-blue-600 rounded-full border-2 border-paper shadow-lg">
+              <lucide-icon [img]="Zap" class="w-3.5 h-3.5 text-white"></lucide-icon>
+            </div>
+          </div>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#181717] mb-4 leading-tight font-serif">
           Software Engineer<br>
           <span class="text-blue-600">AI Systems Architect</span>
