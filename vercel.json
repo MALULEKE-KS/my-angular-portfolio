@@ -2,7 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/my-angular-portfolio",
   "installCommand": "npm install",
-  "framework": null,
+  "framework": "angular",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
