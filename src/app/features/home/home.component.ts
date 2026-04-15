@@ -28,21 +28,17 @@ const TYPING_LINES = [
       <div class="relative z-10 max-w-3xl mx-auto">
 
         <!-- Profile Image -->
-        <div class="mb-8 flex justify-center">
-          <div class="relative group">
-            <!-- Outer glow ring -->
-            <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-[#B8860B] via-[#D4A017] to-[#B8860B] opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-500"></div>
-            <!-- Image container -->
-            <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-[#B8860B] shadow-2xl ring-4 ring-[#B8860B]/20">
+        <div class="mb-10 flex justify-center">
+          <div class="portrait-frame group relative">
+            <div class="portrait-inner">
               <img
                 src="/assets/profile.jpeg"
                 alt="Kurhula Success Maluleke"
-                class="w-full h-full object-cover object-top"
+                class="w-72 h-96 object-cover object-top"
                 loading="eager"
               />
             </div>
-            <!-- Status badge -->
-            <div class="absolute -bottom-1 -right-1 flex items-center gap-1.5 bg-[#B8860B] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+            <div class="absolute -bottom-2 -right-2 flex items-center gap-1.5 bg-[#B8860B] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
               <lucide-icon [img]="Zap" class="w-3 h-3"></lucide-icon>
               Open to work
             </div>
