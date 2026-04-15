@@ -36,5 +36,5 @@ export class ProfileEditorComponent {
     bio: new FormControl('', Validators.required)
   });
 
-  onSubmit() { console.log('Save profile'); }
+  onSubmit() { /* intentionally empty */ }
 }
