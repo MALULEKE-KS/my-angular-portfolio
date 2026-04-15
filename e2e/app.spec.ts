@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 const BASE = 'http://localhost:4200';
 
-async function waitForAngular(page) {
+async function waitForAngular(page: Page) {
   await page.waitForFunction(
     () => {
       const root = document.querySelector('app-root');
@@ -23,8 +23,8 @@ test.describe('Public Pages', () => {
     await waitForAngular(page);
 
     await expect(page.locator('h1')).toContainText('Software Engineer', { timeout: 10000 });
-    await expect(page.locator('text=View Projects')).toBeVisible();
-    await expect(page.locator('text=Contact Me')).toBeVisible();
+    await expect(page.locator('text=View My Work')).toBeVisible();
+    await expect(page.locator('text=Let\'s Talk')).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -36,7 +36,7 @@ test.describe('Public Pages', () => {
     await page.goto(`${BASE}/about`, { waitUntil: 'networkidle' });
     await waitForAngular(page);
 
-    await expect(page.locator('h1')).toContainText('Kurhula', { timeout: 10000 });
+    await expect(page.locator('h1')).toContainText('Software Engineer', { timeout: 10000 });
     await expect(page.locator('text=About Me').first()).toBeVisible();
     expect(errors).toHaveLength(0);
   });
@@ -50,7 +50,7 @@ test.describe('Public Pages', () => {
     await waitForAngular(page);
 
     await expect(page.locator('h1')).toContainText('Projects', { timeout: 10000 });
-    await expect(page.locator('text=View Projects').first()).toBeVisible();
+    await expect(page.locator('text=Projects & Systems').first()).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -70,7 +70,7 @@ test.describe('Public Pages', () => {
     await expect(nameInput).toBeVisible();
     await expect(emailInput).toBeVisible();
     await expect(submitBtn).toBeVisible();
-    await expect(page.locator('text=Name is required').first()).toBeVisible();
+    await expect(page.locator('text=Name is required (min 2 characters)').first()).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -81,7 +81,7 @@ test.describe('Public Pages', () => {
 
     await page.goto(`${BASE}/login`, { waitUntil: 'networkidle' });
     await waitForAngular(page);
-
+    await page.waitForSelector('h1:has-text("Welcome Back")', { timeout: 15000 });
     await expect(page.locator('h1')).toContainText('Welcome Back', { timeout: 10000 });
     await expect(page.locator('input[type="email"]')).toBeVisible();
     await expect(page.locator('input[type="password"]')).toBeVisible();
