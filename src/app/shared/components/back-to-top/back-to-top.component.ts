@@ -1,12 +1,11 @@
 import { Component, HostListener, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule, ChevronUp } from 'lucide-angular';
 
 @Component({
-  selector: 'app-back-to-top',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule],
-  template: `
+    selector: 'app-back-to-top',
+    imports: [LucideAngularModule],
+    template: `
     @if (visible()) {
       <button
         (click)="scrollToTop()"
@@ -16,7 +15,7 @@ import { LucideAngularModule, ChevronUp } from 'lucide-angular';
         <lucide-icon [img]="ChevronUp" class="w-5 h-5"></lucide-icon>
       </button>
     }
-  `,
+  `
 })
 export class BackToTopComponent {
   visible = signal(false);

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
-  selector: 'app-not-found',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  template: `
+    selector: 'app-not-found',
+    imports: [RouterLink],
+    template: `
     <div class="min-h-screen bg-paper flex items-center justify-center px-6">
       <div class="text-center">
         <h1 class="text-9xl font-bold font-serif text-[#181717]/10 mb-4">404</h1>

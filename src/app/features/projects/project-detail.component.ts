@@ -92,10 +92,9 @@ const PROJECTS: Project[] = [
 ];
 
 @Component({
-  selector: 'app-project-detail',
-  standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-project-detail',
+    imports: [CommonModule, RouterLink, LucideAngularModule],
+    template: `
     <div class="min-h-screen bg-paper py-20 px-4">
       @if (project()) {
         <div class="max-w-3xl mx-auto">
@@ -171,7 +170,7 @@ const PROJECTS: Project[] = [
         </div>
       }
     </div>
-  `,
+  `
 })
 export class ProjectDetailComponent {
   private route = inject(ActivatedRoute);

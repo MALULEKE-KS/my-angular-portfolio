@@ -1,15 +1,16 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LucideAngularModule, Mail } from 'lucide-angular';
 import { MessageService } from '../../../core/services/message.service';
 import { Message } from '../../../core/models/api.generated';
 
 @Component({
-  selector: 'app-messages-viewer',
-  standalone: true,
-  imports: [CommonModule, DatePipe, LucideAngularModule],
-  template: `
+    selector: 'app-messages-viewer',
+    imports: [CommonModule, DatePipe, LucideAngularModule],
+    template: `
     <div class="max-w-4xl mx-auto p-8">
       <h2 class="text-2xl font-bold font-serif mb-2">Messages</h2>
       <p class="text-muted text-base mb-8">View messages from your portfolio visitors</p>
@@ -45,16 +46,24 @@ import { Message } from '../../../core/models/api.generated';
     </div>
   `
 })
-export class MessagesViewerComponent implements OnInit {
+export class MessagesViewerComponent implements OnInit, OnDestroy {
   private svc = inject(MessageService);
+  private destroy$ = new Subject<void>();
   messages = signal<Message[]>([]);
   isLoading = signal(true);
   readonly Mail = Mail;
   
   ngOnInit() {
-    this.svc.getMessages().subscribe({
-      next: (data) => { this.messages.set(data); this.isLoading.set(false); },
-      error: () => this.isLoading.set(false)
-    });
+    this.svc.getMessages()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => { this.messages.set(data); this.isLoading.set(false); },
+        error: () => this.isLoading.set(false)
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

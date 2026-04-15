@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse } from '../models/api.generated';
+import { environment } from '@env/environment';
 
 interface User {
   id: string;
@@ -15,7 +16,7 @@ const USER_KEY = 'auth_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiBase = '/api/v1';
+  private readonly apiBase = environment.apiBaseUrl;
   private readonly _user = signal<User | null>(this.loadUser());
   readonly user = this._user.asReadonly();
 
@@ -49,10 +50,18 @@ export class AuthService {
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiBase}/auth/login`, { email, password } as LoginRequest).pipe(
       tap((response) => {
-        if (response.success && response.data?.user) {
-          this._user.set(response.data.user);
-          this.saveUser(response.data.user);
+        if (!response.success || !response.data?.user) {
+          throw new Error(response.error?.message || 'Login failed.');
         }
+
+        const token = response.data?.token ?? response.data?.accessToken;
+        if (!token) {
+          throw new Error('Login response did not include an access token.');
+        }
+
+        localStorage.setItem(TOKEN_KEY, token);
+        this._user.set(response.data.user!);
+        this.saveUser(response.data.user!);
       })
     );
   }

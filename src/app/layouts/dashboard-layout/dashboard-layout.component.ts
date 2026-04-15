@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
-  selector: 'app-dashboard-layout',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
-  template: `
+    selector: 'app-dashboard-layout',
+    imports: [RouterOutlet, RouterLink, RouterLinkActive],
+    template: `
     <div class="min-h-screen flex flex-col bg-paper text-ink">
       <header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-ink/10">
         <div class="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -30,7 +29,7 @@ import { AuthService } from '../../core/services/auth.service';
       </header>
       <main class="flex-1"><router-outlet /></main>
     </div>
-  `,
+  `
 })
 export class DashboardLayoutComponent {
   private auth = inject(AuthService);

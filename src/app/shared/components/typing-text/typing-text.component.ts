@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
-  selector: 'app-typing-text',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-typing-text',
+    imports: [],
+    template: `
     <span class="typing-wrapper">
       <span #textEl class="typing-text"></span><span class="typing-cursor">|</span>
     </span>
-  `,
+  `
 })
 export class TypingTextComponent implements OnInit, OnDestroy {
   @ViewChild('textEl') textEl!: ElementRef<HTMLSpanElement>;

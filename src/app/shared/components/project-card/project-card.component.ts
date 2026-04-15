@@ -3,10 +3,9 @@ import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Github, ExternalLink } from 'lucide-angular';
 
 @Component({
-  selector: 'app-project-card',
-  standalone: true,
-  imports: [RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-project-card',
+    imports: [RouterLink, LucideAngularModule],
+    template: `
     <article class="card-border group relative overflow-hidden rounded-2xl bg-paper border border-ink/10
                      hover:border-gold/40 hover:shadow-[0_0_30px_rgba(184,134,11,0.15)]
                      transition-all duration-500 hover:-translate-y-1">
@@ -67,12 +66,12 @@ import { LucideAngularModule, Github, ExternalLink } from 'lucide-angular';
       </div>
     </article>
   `,
-  styles: [`
+    styles: [`
     :host { display: block; }
     .card-border {
       box-shadow: 0 1px 3px rgba(14,14,14,0.06);
     }
-  `],
+  `]
 })
 export class ProjectCardComponent {
   @Input({ required: true }) project!: { id: string; title: string; description: string; techStack?: string[]; liveUrl?: string | null; repoUrl?: string | null; imageUrl?: string | null; featured: boolean };

@@ -1,33 +1,32 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { ScrollRevealStaggerDirective } from '../../shared/directives/scroll-reveal-stagger.directive';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Send, CheckCircle, AlertCircle, Loader, Github, Linkedin, Mail, ArrowRight } from 'lucide-angular';
 import { MessageService } from '../../core/services/message.service';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, ScrollRevealDirective, ScrollRevealStaggerDirective],
-  template: `
+    selector: 'app-contact',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [ReactiveFormsModule, RouterLink, LucideAngularModule],
+    template: `
     <div class="min-h-screen bg-paper pt-20 pb-16">
       <div class="max-w-4xl mx-auto px-6">
 
         <!-- Page header -->
         <div class="text-center mb-12">
-          <h1 class="text-4xl sm:text-5xl font-bold font-serif text-[#181717] mb-3">Let's Work Together</h1>
-          <p class="text-[#374151]">Have a project in mind? Let's build something that actually ships.</p>
+          <h1 class="text-4xl sm:text-5xl font-bold font-serif text-ink mb-3">Let's Work Together</h1>
+          <p class="text-muted">Have a project in mind? Let's build something that actually ships.</p>
         </div>
 
         <!-- Success state -->
         @if (isSuccess()) {
-          <div class="mb-8 p-8 rounded-2xl border-2 border-[#059669]/20 bg-[#059669]/5 text-center">
-            <lucide-icon [img]="CheckCircle" class="w-12 h-12 text-[#059669] mx-auto mb-4"></lucide-icon>
-            <h3 class="text-xl font-bold text-[#181717] mb-2">Message sent.</h3>
-            <p class="text-[#374151] text-sm mb-4">I'll get back to you within 48 hours.</p>
-            <button (click)="resetForm()" class="text-[#B8860B] font-semibold text-sm hover:text-[#181717] transition-colors">
+          <div class="mb-8 p-8 rounded-2xl border-2 border-green-600/20 bg-green-50 text-center">
+            <lucide-icon [img]="CheckCircle" class="w-12 h-12 text-green-600 mx-auto mb-4"></lucide-icon>
+            <h3 class="text-xl font-bold text-ink mb-2">Message sent.</h3>
+            <p class="text-muted text-sm mb-4">I'll get back to you within 48 hours.</p>
+            <button (click)="resetForm()" class="text-gold font-semibold text-sm hover:text-ink transition-colors">
               Send another message
             </button>
           </div>
@@ -35,54 +34,54 @@ import { MessageService } from '../../core/services/message.service';
 
         <!-- Error state -->
         @if (isError()) {
-          <div class="mb-8 p-6 rounded-2xl border-2 border-[#DC2626]/20 bg-[#DC2626]/5">
-            <lucide-icon [img]="AlertCircle" class="w-10 h-10 text-[#DC2626] mx-auto mb-4"></lucide-icon>
-            <p class="text-center text-[#DC2626] font-medium text-sm">{{ errorMessage() }}</p>
+          <div class="mb-8 p-6 rounded-2xl border-2 border-red-600/20 bg-red-50">
+            <lucide-icon [img]="AlertCircle" class="w-10 h-10 text-red-600 mx-auto mb-4"></lucide-icon>
+            <p class="text-center text-red-600 font-medium text-sm">{{ errorMessage() }}</p>
           </div>
         }
 
         <!-- Contact form -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="rounded-2xl border-2 border-[#181717]/10 bg-white p-8">
-            <h2 class="font-bold text-[#181717] text-lg mb-6">Send a message</h2>
+          <div class="rounded-2xl border-2 border-ink/10 bg-white p-8">
+            <h2 class="font-bold text-ink text-lg mb-6">Send a message</h2>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
               <div>
-                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-2">Name</label>
+                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">Name</label>
                 <input id="name" type="text" formControlName="name" autocomplete="name"
-                  class="w-full px-4 py-3 rounded-xl border-2 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none transition-colors ' + (nameInvalid ? 'border-[#DC2626] bg-[#DC2626]/5' : 'border-[#181717]/10 focus:border-[#B8860B]')"
-                  placeholder="Your name" />
+                  [class]="nameInputClasses"
+                  placeholder="Your name" (blur)="onBlur('name')" />
                 @if (nameInvalid) {
-                  <p class="text-[#DC2626] text-xs mt-1">Name is required (min 2 characters).</p>
+                  <p class="text-red-600 text-xs mt-1">Name is required (min 2 characters).</p>
                 }
               </div>
               <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-2">Email</label>
+                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">Email</label>
                 <input id="email" type="email" formControlName="email" autocomplete="email"
-                  class="w-full px-4 py-3 rounded-xl border-2 border-[#181717]/10 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none focus:border-[#B8860B] transition-colors"
-                  placeholder="you@example.com" />
+                  class="w-full px-4 py-3 rounded-xl border-2 border-ink/10 bg-gray-50 text-ink text-sm focus:outline-none focus:border-gold transition-colors"
+                  placeholder="you@example.com" (blur)="onBlur('email')" />
                 @if (emailInvalid) {
-                  <p class="text-[#DC2626] text-xs mt-1">
-                    (blur)="onBlur('email')" @if (email?.errors?.['required']) { Email is required. }
+                  <p class="text-red-600 text-xs mt-1">
+                    @if (email?.errors?.['required']) { Email is required. }
                     @if (email?.errors?.['email']) { Enter a valid email. }
                   </p>
                 }
               </div>
               <div>
-                <label for="message" class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-2">Message</label>
+                <label for="message" class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">Message</label>
                 <textarea id="message" formControlName="message" rows="5"
-                  class="w-full px-4 py-3 rounded-xl border-2 border-[#181717]/10 bg-[#FAFAFA] text-[#181717] text-sm focus:outline-none focus:border-[#B8860B] transition-colors resize-none"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-ink/10 bg-gray-50 text-ink text-sm focus:outline-none focus:border-gold transition-colors resize-none"
                   placeholder="Tell me about your project..." (blur)="onBlur('message')"></textarea>
                 <div class="flex justify-end mt-1">
-                  <span class="text-xs text-[#374151]" [style.color]="(message!.value?.length || 0) > 1800 ? '#DC2626' : '#374151'">
+                  <span class="text-xs" [class]="messageLengthColor">
                     {{ message?.value?.length || 0 }} / 2000
                   </span>
                 </div>
                 @if (messageInvalid) {
-                  <p class="text-[#DC2626] text-xs mt-1">Message is required (min 10 characters).</p>
+                  <p class="text-red-600 text-xs mt-1">Message is required (min 10 characters).</p>
                 }
               </div>
-              <button type="submit" [disabled]="isSubmitting() || isRateLimited()"
-                class="w-full py-3.5 px-6 bg-[#181717] text-white font-bold text-sm rounded-xl hover:bg-[#181717]/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+              <button type="submit" [disabled]="form.invalid || isSubmitting() || isRateLimited()"
+                class="w-full py-3.5 px-6 bg-ink text-white font-bold text-sm rounded-xl hover:bg-ink/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 @if (isSubmitting()) {
                   <lucide-icon [img]="Loader" class="w-4 h-4 animate-spin"></lucide-icon>
                   <span>Sending...</span>
@@ -98,45 +97,45 @@ import { MessageService } from '../../core/services/message.service';
 
           <!-- Contact info -->
           <div class="space-y-6">
-            <div class="rounded-2xl border-2 border-[#181717]/10 bg-white p-8">
-              <h2 class="font-bold text-[#181717] text-lg mb-4">Direct contact</h2>
+            <div class="rounded-2xl border-2 border-ink/10 bg-white p-8">
+              <h2 class="font-bold text-ink text-lg mb-4">Direct contact</h2>
               <div class="space-y-3">
-                <a href="mailto:kurhula04s@gmail.com" class="flex items-center gap-3 text-[#374151] hover:text-[#B8860B] transition-colors group">
+                <a href="mailto:kurhula04s@gmail.com" class="flex items-center gap-3 text-muted hover:text-gold transition-colors group">
                   <lucide-icon [img]="Mail" class="w-5 h-5 flex-shrink-0"></lucide-icon>
                   <span class="text-sm">kurhula04s&#64;gmail.com</span>
                 </a>
-                <a href="https://github.com/MALULEKE-KS" target="_blank" class="flex items-center gap-3 text-[#374151] hover:text-[#B8860B] transition-colors group">
+                <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-muted hover:text-gold transition-colors group">
                   <lucide-icon [img]="Github" class="w-5 h-5 flex-shrink-0"></lucide-icon>
                   <span class="text-sm">github.com/MALULEKE-KS</span>
                 </a>
-                <a href="https://linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" class="flex items-center gap-3 text-[#374151] hover:text-[#B8860B] transition-colors group">
+                <a href="https://linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-muted hover:text-gold transition-colors group">
                   <lucide-icon [img]="Linkedin" class="w-5 h-5 flex-shrink-0"></lucide-icon>
                   <span class="text-sm">linkedin.com/in/kurhula-success-maluleke</span>
                 </a>
               </div>
             </div>
 
-            <div class="rounded-2xl border-2 border-[#B8860B]/20 bg-[#B8860B]/5 p-8">
-              <h2 class="font-bold text-[#181717] text-lg mb-3">What happens next</h2>
-              <div class="space-y-3 text-sm text-[#374151]">
+            <div class="rounded-2xl border-2 border-gold/20 bg-gold/5 p-8">
+              <h2 class="font-bold text-ink text-lg mb-3">What happens next</h2>
+              <div class="space-y-3 text-sm text-muted">
                 <div class="flex items-start gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#B8860B] text-white text-xs font-bold flex items-center justify-center">1</span>
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-white text-xs font-bold flex items-center justify-center">1</span>
                   <p>I review your message and project details.</p>
                 </div>
                 <div class="flex items-start gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#B8860B] text-white text-xs font-bold flex items-center justify-center">2</span>
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-white text-xs font-bold flex items-center justify-center">2</span>
                   <p>We schedule a 30-minute call to discuss scope and feasibility.</p>
                 </div>
                 <div class="flex items-start gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#B8860B] text-white text-xs font-bold flex items-center justify-center">3</span>
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gold text-white text-xs font-bold flex items-center justify-center">3</span>
                   <p>I send a detailed proposal with timeline and pricing.</p>
                 </div>
               </div>
             </div>
 
-            <div class="rounded-2xl bg-[#181717] text-white p-8">
+            <div class="rounded-2xl bg-ink text-white p-8">
               <p class="text-white/80 text-sm leading-relaxed mb-4">Not sure if I am the right fit? Check out my work and decide for yourself.</p>
-              <a routerLink="/projects" class="inline-flex items-center gap-2 text-[#B8860B] font-semibold text-sm hover:text-white transition-colors">
+              <a routerLink="/projects" class="inline-flex items-center gap-2 text-gold font-semibold text-sm hover:text-white transition-colors">
                 View my projects <lucide-icon [img]="ArrowRight" class="w-4 h-4"></lucide-icon>
               </a>
             </div>
@@ -144,9 +143,9 @@ import { MessageService } from '../../core/services/message.service';
         </div>
       </div>
     </div>
-  `,
+  `
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
 
   form = new FormGroup({
@@ -171,7 +170,25 @@ export class ContactComponent implements OnInit {
   get emailInvalid() { return this.email?.invalid && this.email?.touched; }
   get messageInvalid() { return this.message?.invalid && this.message?.touched; }
 
+  get nameInputClasses(): string {
+    const base = 'w-full px-4 py-3 rounded-xl border-2 bg-gray-50 text-ink text-sm focus:outline-none transition-colors';
+    return this.nameInvalid
+      ? `${base} border-red-600 bg-red-50/5`
+      : `${base} border-ink/10 focus:border-gold`;
+  }
+
+  get messageLengthColor(): string {
+    return (this.message!.value?.length || 0) > 1800 ? 'text-red-600' : 'text-muted';
+  }
+
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;
+    }
+  }
 
   onSubmit(): void {
     this.form.markAllAsTouched();
@@ -179,6 +196,7 @@ export class ContactComponent implements OnInit {
 
     this.isSubmitting.set(true);
     this.isError.set(false);
+    this.isSuccess.set(false);
 
     this.messageService.sendMessage({
       name: this.name!.value!,
@@ -192,10 +210,10 @@ export class ContactComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         this.isSubmitting.set(false);
-        this.isError.set(true);
         if (err.status === 429) {
           this.handleRateLimit(60);
         } else {
+          this.isError.set(true);
           this.errorMessage.set('Failed to send. Please try again or email directly.');
         }
       },
@@ -208,14 +226,23 @@ export class ContactComponent implements OnInit {
   }
 
   private handleRateLimit(seconds: number): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+
+    this.isError.set(true);
     this.isRateLimited.set(true);
     this.countdownSeconds.set(seconds);
+    this.errorMessage.set(`Too many requests. Try again in ${seconds} seconds.`);
     this.countdownInterval = setInterval(() => {
       const s = this.countdownSeconds() - 1;
       this.countdownSeconds.set(s);
       if (s <= 0) {
         this.isRateLimited.set(false);
-        if (this.countdownInterval) clearInterval(this.countdownInterval);
+        if (this.countdownInterval) {
+          clearInterval(this.countdownInterval);
+          this.countdownInterval = null;
+        }
       }
     }, 1000);
   }

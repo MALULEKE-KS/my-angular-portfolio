@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+
 import { LucideAngularModule, Github, Linkedin, Mail, Menu } from 'lucide-angular';
 import navConfig from '../../config/navigation.json';
 
 @Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-main-layout',
+    imports: [RouterOutlet, RouterLink, RouterLinkActive, LucideAngularModule],
+    template: `
     <div class="min-h-screen flex flex-col bg-paper text-ink">
 
       <!-- HEADER -->
@@ -158,7 +157,7 @@ import navConfig from '../../config/navigation.json';
         </div>
       </footer>
     </div>
-  `,
+  `
 })
 export class MainLayoutComponent {
   readonly navConfig = navConfig;

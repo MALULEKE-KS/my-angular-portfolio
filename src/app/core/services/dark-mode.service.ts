@@ -1,8 +1,9 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, inject, DestroyRef } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DarkModeService {
   private readonly STORAGE_KEY = 'theme';
+  private destroyRef = inject(DestroyRef);
   isDark = signal(false);
 
   constructor() {
@@ -20,12 +21,18 @@ export class DarkModeService {
       this.applyDark(prefersDark);
     }
 
-    // Listen for OS theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // Listen for OS theme changes with proper cleanup
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
       if (!localStorage.getItem(this.STORAGE_KEY)) {
         this.isDark.set(e.matches);
         this.applyDark(e.matches);
       }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    this.destroyRef.onDestroy(() => {
+      mediaQuery.removeEventListener('change', handleChange);
     });
   }
 

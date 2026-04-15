@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message, SendMessageRequest } from '../models/api.generated';
+import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
-  private readonly apiBase = '/api/v1';
+  private readonly apiBase = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 

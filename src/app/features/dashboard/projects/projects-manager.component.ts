@@ -1,15 +1,16 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { LucideAngularModule, Plus } from 'lucide-angular';
 import { ProjectService } from '../../../core/services/project.service';
 import { Project } from '../../../core/models/api.generated';
 import { ProjectCardComponent } from '../../../shared/components/project-card/project-card.component';
 
 @Component({
-  selector: 'app-projects-manager',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule, ProjectCardComponent],
-  template: `
+    selector: 'app-projects-manager',
+    imports: [LucideAngularModule, ProjectCardComponent],
+    template: `
     <div class="max-w-6xl mx-auto p-8">
       <div class="flex items-center justify-between mb-8">
         <div>
@@ -43,16 +44,24 @@ import { ProjectCardComponent } from '../../../shared/components/project-card/pr
     </div>
   `
 })
-export class ProjectsManagerComponent implements OnInit {
+export class ProjectsManagerComponent implements OnInit, OnDestroy {
   readonly Plus = Plus;
   private svc = inject(ProjectService);
+  private destroy$ = new Subject<void>();
   projects = signal<Project[]>([]);
   isLoading = signal(true);
   
   ngOnInit() {
-    this.svc.getProjects().subscribe({
-      next: (data) => { this.projects.set(data); this.isLoading.set(false); },
-      error: () => this.isLoading.set(false)
-    });
+    this.svc.getProjects()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => { this.projects.set(data); this.isLoading.set(false); },
+        error: () => this.isLoading.set(false)
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

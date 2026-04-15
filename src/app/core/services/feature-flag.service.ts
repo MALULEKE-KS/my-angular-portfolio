@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class FeatureFlagService {
-  private readonly apiBase = '/api/v1';
+  private readonly apiBase = environment.apiBaseUrl;
   private readonly CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
   private flags = new Map<string, boolean>();

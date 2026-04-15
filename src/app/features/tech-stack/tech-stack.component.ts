@@ -1,20 +1,18 @@
-import { Component } from '@angular/core';
-import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { ScrollRevealStaggerDirective } from '../../shared/directives/scroll-reveal-stagger.directive';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
 import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, Shield, Zap, Wrench, Cog } from 'lucide-angular';
 
 @Component({
-  selector: 'app-tech-stack',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule, ScrollRevealDirective, ScrollRevealStaggerDirective],
-  template: `
+    selector: 'app-tech-stack',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [LucideAngularModule],
+    template: `
     <div class="min-h-screen bg-paper">
       <!-- Hero -->
-      <section class="py-20 px-6 bg-[#181717] text-white text-center">
+      <section class="py-20 px-6 bg-ink text-white text-center">
         <p class="text-xs font-bold tracking-widest uppercase text-gold mb-4 font-mono">Systems Architecture — Q2 2026</p>
         <h1 class="text-4xl sm:text-5xl font-bold font-serif text-white mb-4">Technical Stack</h1>
-        <p class="text-[#9ca3af] text-lg max-w-xl mx-auto">Locked technology choices — each tool selected for a specific reason.</p>
+        <p class="text-gray-400 text-lg max-w-xl mx-auto">Locked technology choices — each tool selected for a specific reason.</p>
       </section>
 
       <!-- Stack Grid -->
@@ -24,15 +22,15 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
           <!-- Skill Categories -->
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 mb-16">
             @for (cat of categories; track cat.title) {
-              <div class="rounded-2xl border border-[#181717]/10 bg-white p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+              <div class="rounded-2xl border border-ink/10 bg-white p-6 hover:shadow-lg transition-all hover:-translate-y-1">
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" [style.background]="cat.bg">
                   <lucide-icon [img]="cat.icon" class="w-6 h-6" [style.color]="cat.color"></lucide-icon>
                 </div>
-                <h3 class="text-lg font-bold font-serif text-[#181717] mb-1">{{ cat.title }}</h3>
-                <p class="text-xs text-[#9ca3af] mb-4">{{ cat.subtitle }}</p>
+                <h3 class="text-lg font-bold font-serif text-ink mb-1">{{ cat.title }}</h3>
+                <p class="text-xs text-gray-400 mb-4">{{ cat.subtitle }}</p>
                 <div class="flex flex-wrap gap-2">
                   @for (tech of cat.tech; track tech) {
-                    <span class="px-2.5 py-1 bg-[#f3f4f6] text-[#374151] text-xs rounded-full font-mono">{{ tech }}</span>
+                    <span class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-mono">{{ tech }}</span>
                   }
                 </div>
               </div>
@@ -41,15 +39,15 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
 
           <!-- Architecture Flow -->
           <div class="mb-16">
-            <h2 class="text-2xl font-bold font-serif text-[#181717] mb-8 text-center">Architecture by Platform</h2>
+            <h2 class="text-2xl font-bold font-serif text-ink mb-8 text-center">Architecture by Platform</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
               <div class="rounded-2xl border-2 border-blue-500/20 bg-white p-8 hover:border-blue-500/50 transition-all">
                 <div class="flex items-center gap-3 mb-6">
                   <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">N</div>
                   <div>
-                    <h3 class="font-bold text-[#181717] text-lg">Next.js Systems</h3>
-                    <p class="text-xs text-[#9ca3af] font-mono">Maphophe · SyncUp</p>
+                    <h3 class="font-bold text-ink text-lg">Next.js Systems</h3>
+                    <p class="text-xs text-gray-400 font-mono">Maphophe · SyncUp</p>
                   </div>
                 </div>
                 <div class="space-y-2.5">
@@ -58,12 +56,12 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
                       <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                         <span class="text-xs font-bold text-blue-600">{{ layer.initial }}</span>
                       </div>
-                      <span class="text-sm text-[#374151]">{{ layer.name }}</span>
+                      <span class="text-sm text-gray-700">{{ layer.name }}</span>
                     </div>
                   }
                 </div>
-                <div class="mt-5 pt-4 border-t border-[#181717]/10">
-                  <p class="text-xs text-[#9ca3af]">Content-driven · SEO-critical · Full-stack unified · Vercel</p>
+                <div class="mt-5 pt-4 border-t border-ink/10">
+                  <p class="text-xs text-gray-400">Content-driven · SEO-critical · Full-stack unified · Vercel</p>
                 </div>
               </div>
 
@@ -71,8 +69,8 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
                 <div class="flex items-center gap-3 mb-6">
                   <div class="w-12 h-12 rounded-xl bg-gold flex items-center justify-center text-white font-bold text-xl shadow-lg">A</div>
                   <div>
-                    <h3 class="font-bold text-[#181717] text-lg">Angular + FastAPI</h3>
-                    <p class="text-xs text-[#9ca3af] font-mono">FundsLink Academy · Reserve Bank</p>
+                    <h3 class="font-bold text-ink text-lg">Angular + FastAPI</h3>
+                    <p class="text-xs text-gray-400 font-mono">FundsLink Academy · Reserve Bank</p>
                   </div>
                 </div>
                 <div class="space-y-2.5">
@@ -81,28 +79,28 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
                       <div class="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
                         <span class="text-xs font-bold text-gold">{{ layer.initial }}</span>
                       </div>
-                      <span class="text-sm text-[#374151]">{{ layer.name }}</span>
+                      <span class="text-sm text-gray-700">{{ layer.name }}</span>
                     </div>
                   }
                 </div>
-                <div class="mt-5 pt-4 border-t border-[#181717]/10">
-                  <p class="text-xs text-[#9ca3af]">Enterprise-grade · AI-powered · Precision-critical · Vercel + Railway</p>
+                <div class="mt-5 pt-4 border-t border-ink/10">
+                  <p class="text-xs text-gray-400">Enterprise-grade · AI-powered · Precision-critical · Vercel + Railway</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Tools -->
-          <div class="rounded-2xl border border-[#181717]/10 bg-white p-8">
+          <div class="rounded-2xl border border-ink/10 bg-white p-8">
             <div class="flex items-center gap-3 mb-6">
               <lucide-icon [img]="Wrench" class="w-6 h-6 text-gold"></lucide-icon>
-              <h2 class="text-xl font-bold font-serif text-[#181717]">Tools & Best Practices</h2>
+              <h2 class="text-xl font-bold font-serif text-ink">Tools & Best Practices</h2>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
               @for (tool of tools; track tool) {
-                <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#f8f9fa] hover:bg-[#f3f4f6] transition-colors">
-                  <lucide-icon [img]="Cog" class="w-4 h-4 text-[#9ca3af] shrink-0"></lucide-icon>
-                  <span class="text-sm text-[#374151]">{{ tool }}</span>
+                <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <lucide-icon [img]="Cog" class="w-4 h-4 text-gray-400 shrink-0"></lucide-icon>
+                  <span class="text-sm text-gray-700">{{ tool }}</span>
                 </div>
               }
             </div>
@@ -111,7 +109,7 @@ import { LucideAngularModule, Code, Database, Cloud, Bot, Layers, Cpu, Server, S
         </div>
       </section>
     </div>
-  `,
+  `
 })
 export class TechStackComponent {
   readonly Code = Code;

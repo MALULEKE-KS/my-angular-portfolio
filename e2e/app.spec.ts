@@ -1,30 +1,24 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 const BASE = 'http://localhost:4200';
 
-async function waitForAngular(page: Page) {
-  await page.waitForFunction(
-    () => {
-      const root = document.querySelector('app-root');
-      return root && root.textContent.trim().length > 100;
-    },
-    { timeout: 20000 }
-  );
+async function gotoAndWait(page: Page, path = '/'): Promise<void> {
+  await page.goto(`${BASE}${path}`, { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('app-root')).toBeVisible();
+  await page.waitForLoadState('networkidle');
 }
 
 test.describe('Public Pages', () => {
-
   test('home: page loads, hero visible, no console errors', async ({ page }) => {
     const errors: string[] = [];
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(BASE, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page);
 
     await expect(page.locator('h1')).toContainText('Software Engineer', { timeout: 10000 });
-    await expect(page.locator('text=View My Work')).toBeVisible();
-    await expect(page.locator('text=Let\'s Talk')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View My Work' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Let\'s Talk' }).first()).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -33,11 +27,10 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/about`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page, '/about');
 
     await expect(page.locator('h1')).toContainText('Software Engineer', { timeout: 10000 });
-    await expect(page.locator('text=About Me').first()).toBeVisible();
+    await expect(page.getByText('About Me')).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -46,11 +39,10 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page, '/projects');
 
     await expect(page.locator('h1')).toContainText('Projects', { timeout: 10000 });
-    await expect(page.locator('text=Projects & Systems').first()).toBeVisible();
+    await expect(page.getByText('Projects & Systems')).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -59,18 +51,21 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/contact`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page, '/contact');
+
+    const nameInput = page.locator('#name');
+    const emailInput = page.locator('#email');
+    const submitBtn = page.getByRole('button', { name: 'Send Message' });
 
     await expect(page.locator('h1')).toContainText('Work Together', { timeout: 10000 });
-    const nameInput = page.locator('input[id="name"]');
-    const emailInput = page.locator('input[id="email"]');
-    const submitBtn = page.locator('button[type="submit"]');
-
     await expect(nameInput).toBeVisible();
     await expect(emailInput).toBeVisible();
     await expect(submitBtn).toBeVisible();
-    await expect(page.locator('text=Name is required (min 2 characters)').first()).toBeVisible();
+
+    await nameInput.focus();
+    await emailInput.focus();
+
+    await expect(page.getByText('Name is required (min 2 characters).')).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 
@@ -79,9 +74,8 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/login`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
-    await page.waitForSelector('h1:has-text("Welcome Back")', { timeout: 15000 });
+    await gotoAndWait(page, '/login');
+
     await expect(page.locator('h1')).toContainText('Welcome Back', { timeout: 10000 });
     await expect(page.locator('input[type="email"]')).toBeVisible();
     await expect(page.locator('input[type="password"]')).toBeVisible();
@@ -94,8 +88,7 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/stack`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page, '/stack');
 
     await expect(page.locator('h1')).toContainText('Technical Stack', { timeout: 10000 });
     expect(errors).toHaveLength(0);
@@ -106,8 +99,7 @@ test.describe('Public Pages', () => {
     page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto(`${BASE}/philosophy`, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page, '/philosophy');
 
     await expect(page.locator('h1')).toContainText('System Design Philosophy', { timeout: 10000 });
     expect(errors).toHaveLength(0);
@@ -121,7 +113,7 @@ test.describe('Navigation', () => {
     page.on('pageerror', (err) => errors.push(err.message));
 
     const navChecks = [
-      { path: '/about', h1: 'Kurhula' },
+      { path: '/about', h1: 'Software Engineer' },
       { path: '/projects', h1: 'Projects' },
       { path: '/stack', h1: 'Technical Stack' },
       { path: '/philosophy', h1: 'System Design Philosophy' },
@@ -129,16 +121,15 @@ test.describe('Navigation', () => {
     ];
 
     for (const check of navChecks) {
-      await page.goto(`${BASE}${check.path}`, { waitUntil: 'networkidle' });
-      await waitForAngular(page);
+      await gotoAndWait(page, check.path);
       await expect(page.locator('h1')).toContainText(check.h1, { timeout: 10000 });
     }
+
     expect(errors).toHaveLength(0);
   });
 
   test('footer links visible', async ({ page }) => {
-    await page.goto(BASE, { waitUntil: 'networkidle' });
-    await waitForAngular(page);
+    await gotoAndWait(page);
     await expect(page.locator('footer')).toBeVisible();
     await expect(page.locator('footer').locator('a').first()).toBeVisible();
   });

@@ -1,13 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Lock, Play, Star, Zap, Globe, Code, Database } from 'lucide-angular';
 
 @Component({
-  selector: 'app-projects',
-  standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-projects',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterLink, LucideAngularModule],
+    template: `
     <div class="min-h-screen bg-paper">
       <!-- Page Hero -->
       <section class="min-h-[60vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-12 bg-gradient-to-b from-amber-50/20 to-paper relative overflow-hidden">
@@ -35,7 +35,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
               <p class="text-sm text-muted font-mono mb-2">github.com/KSDRILL-SA</p>
               <p class="text-muted leading-relaxed max-w-2xl">Technology studio building 4 production-grade systems in fintech, GovTech, EdTech, and social infrastructure.</p>
             </div>
-            <a href="https://github.com/KSDRILL-SA" target="_blank" rel="noopener"
+            <a href="https://github.com/KSDRILL-SA" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:underline shrink-0 mt-1">
               GitHub <lucide-icon [img]="ExternalLink" class="w-3.5 h-3.5"></lucide-icon>
             </a>
@@ -57,15 +57,15 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
           <!-- System Cards -->
           <div class="space-y-6">
             @for (sys of ksdrillSystems; track sys.name) {
-              <div class="rounded-2xl border-2 p-8 bg-white hover:shadow-xl transition-all duration-300" [class]="'hover:border-' + sys.colorClass">
+              <div class="rounded-2xl border-2 p-8 bg-white hover:shadow-xl transition-all duration-300" [class]="getHoverBorderClass(sys.colorClass)">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-6">
                   <!-- Left: Meta -->
                   <div class="sm:w-48 shrink-0">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white text-sm mb-3" [class]="'bg-' + sys.colorClass">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white text-sm mb-3" [class]="getBgClass(sys.colorClass)">
                       {{ sys.name.charAt(0) }}
                     </div>
                     <h3 class="font-bold text-ink text-lg mb-1 leading-tight">{{ sys.name }}</h3>
-                    <p class="text-xs font-mono" [class]="'text-' + sys.colorClass">{{ sys.category }}</p>
+                    <p class="text-xs font-mono" [class]="getTextClass(sys.colorClass)">{{ sys.category }}</p>
                   </div>
                   <!-- Right: Content -->
                   <div class="flex-1">
@@ -87,8 +87,8 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
                     <div class="flex flex-wrap items-center gap-3">
                       <span class="text-xs font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">Design: Complete</span>
                       <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">Build: {{ sys.buildStart }}</span>
-                      <span class="text-xs font-semibold px-3 py-1 rounded-full" [class]="'text-' + sys.colorClass + '-700 bg-' + sys.colorClass + '-50'">Target: {{ sys.target }}</span>
-                      <a [href]="sys.repo" target="_blank" rel="noopener"
+                      <span class="text-xs font-semibold px-3 py-1 rounded-full" [class]="getTargetBadgeClass(sys.colorClass)">Target: {{ sys.target }}</span>
+                      <a [href]="sys.repo" target="_blank" rel="noopener noreferrer"
                          class="ml-auto flex items-center gap-1 text-xs font-medium text-muted hover:text-ink">
                         <lucide-icon [img]="Github" class="w-3.5 h-3.5"></lucide-icon> Source
                       </a>
@@ -110,7 +110,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
                 <p class="text-white/60 text-sm mb-4 leading-relaxed">Every platform is built under a locked constitutional framework — 10 constitutions, 355 rules covering team process, code quality, and production deployment.</p>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                   <code class="text-xs bg-white/10 px-4 py-2 rounded-lg font-mono overflow-x-auto">git clone https://github.com/MALULEKE-KS/system-design-template.git</code>
-                  <a href="https://github.com/MALULEKE-KS/system-design-template" target="_blank" rel="noopener"
+                  <a href="https://github.com/MALULEKE-KS/system-design-template" target="_blank" rel="noopener noreferrer"
                      class="flex items-center gap-1.5 text-sm font-semibold text-gold hover:text-gold2 shrink-0">
                     View <lucide-icon [img]="ExternalLink" class="w-3.5 h-3.5"></lucide-icon>
                   </a>
@@ -134,7 +134,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
               <p class="text-sm text-muted font-mono mb-2">github.com/GrowthCore-Solutions</p>
               <p class="text-muted leading-relaxed max-w-2xl">Digital growth organization. Web development, marketing campaigns, customer acquisition, and analytics to drive measurable growth.</p>
             </div>
-            <a href="https://github.com/GrowthCore-Solutions" target="_blank" rel="noopener"
+            <a href="https://github.com/GrowthCore-Solutions" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-1.5 text-sm font-medium text-[#FF6B6B] hover:underline shrink-0 mt-1">
               GitHub <lucide-icon [img]="ExternalLink" class="w-3.5 h-3.5"></lucide-icon>
             </a>
@@ -178,7 +178,7 @@ import { LucideAngularModule, Github, ExternalLink, ArrowRight, CheckCircle, Loc
         </div>
       </section>
     </div>
-  `,
+  `
 })
 export class ProjectsComponent {
   readonly Github = Github;
@@ -234,4 +234,24 @@ export class ProjectsComponent {
     { title: 'Drafting Services', desc: 'Accurate drafting to match project requirements.' },
     { title: 'Development Planning', desc: 'Planning support with clarity, structure, and direction.' },
   ];
+
+  private readonly colorStyles: Record<string, { hover: string; bg: string; text: string; badge: string }> = {
+    'blue-600': { hover: 'hover:border-blue-600', bg: 'bg-blue-600', text: 'text-blue-600', badge: 'text-blue-700 bg-blue-50' },
+    'green-600': { hover: 'hover:border-green-600', bg: 'bg-green-600', text: 'text-green-600', badge: 'text-green-700 bg-green-50' },
+    'blue-800': { hover: 'hover:border-blue-800', bg: 'bg-blue-800', text: 'text-blue-800', badge: 'text-blue-800 bg-blue-50' },
+    'orange-500': { hover: 'hover:border-orange-500', bg: 'bg-orange-500', text: 'text-orange-500', badge: 'text-orange-700 bg-orange-50' },
+  };
+
+  getHoverBorderClass(colorClass: string): string {
+    return this.colorStyles[colorClass]?.hover || 'hover:border-gray-300';
+  }
+  getBgClass(colorClass: string): string {
+    return this.colorStyles[colorClass]?.bg || 'bg-gray-500';
+  }
+  getTextClass(colorClass: string): string {
+    return this.colorStyles[colorClass]?.text || 'text-gray-600';
+  }
+  getTargetBadgeClass(colorClass: string): string {
+    return this.colorStyles[colorClass]?.badge || 'text-gray-700 bg-gray-50';
+  }
 }

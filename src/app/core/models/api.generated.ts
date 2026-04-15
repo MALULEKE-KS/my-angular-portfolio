@@ -13,6 +13,8 @@ export const LoginResponseSchema = z.object({
       email: z.string().email(),
       name: z.string().optional(),
     }),
+    token: z.string().min(1).optional(),
+    accessToken: z.string().min(1).optional(),
   }).nullable(),
   error: z.object({
     code: z.string(),

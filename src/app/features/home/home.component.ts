@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule, Github, Linkedin, Mail, ExternalLink, ArrowRight, MapPin, GraduationCap, Code, Globe, Zap, Users, Briefcase, MessageSquare, Server } from 'lucide-angular';
 
 const TYPING_LINES = [
@@ -12,17 +12,17 @@ const TYPING_LINES = [
 ];
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-home',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterLink, LucideAngularModule],
+    template: `
     <!-- ═══ HERO ═══ -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 bg-[#FAFAF8] overflow-hidden">
+    <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 bg-paper overflow-hidden">
 
       <!-- Ambient gradient blobs -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#B8860B]/8 rounded-full blur-[80px]"></div>
-        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#181717]/4 rounded-full blur-[60px]"></div>
+        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gold/8 rounded-full blur-[80px]"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-ink/4 rounded-full blur-[60px]"></div>
       </div>
 
       <div class="relative z-10 max-w-3xl mx-auto">
@@ -38,7 +38,7 @@ const TYPING_LINES = [
                 loading="eager"
               />
             </div>
-            <div class="absolute -bottom-2 -right-2 flex items-center gap-1.5 bg-[#B8860B] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+            <div class="absolute -bottom-2 -right-2 flex items-center gap-1.5 bg-gold text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
               <lucide-icon [img]="Zap" class="w-3 h-3"></lucide-icon>
               Open to work
             </div>
@@ -46,38 +46,38 @@ const TYPING_LINES = [
         </div>
 
         <!-- Name -->
-        <p class="text-xs font-bold tracking-[0.25em] uppercase text-[#B8860B] mb-4 font-mono">
+        <p class="text-xs font-bold tracking-[0.25em] uppercase text-gold mb-4 font-mono">
           Maluleke Kurhula Success
         </p>
 
         <!-- Headline -->
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#181717] mb-4 leading-tight font-serif">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink mb-4 leading-tight font-serif">
           Software Engineer<br>
-          <span class="text-[#B8860B]">| AI-Integrated Systems</span>
+          <span class="text-gold">| AI-Integrated Systems</span>
         </h1>
 
         <!-- Sub-headline -->
-        <p class="text-lg text-[#5a5040] mb-10 max-w-xl mx-auto leading-relaxed">
+        <p class="text-lg text-muted mb-10 max-w-xl mx-auto leading-relaxed">
           Building production-grade digital systems across fintech, healthcare, enterprise, and AI — designed to scale, deployed to ship.
         </p>
 
         <!-- Typewriter -->
         <div class="h-12 flex items-center justify-center mb-10">
-          <p class="text-base sm:text-lg font-semibold text-[#181717] font-mono transition-opacity duration-300"
+          <p class="text-base sm:text-lg font-semibold text-ink font-mono transition-opacity duration-300"
              [style.opacity]="currentOpacity()">
-            {{ currentLine() }}<span class="animate-pulse text-[#B8860B]">|</span>
+            {{ currentLine() }}<span class="animate-pulse text-gold">|</span>
           </p>
         </div>
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <a routerLink="/projects"
-             class="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#181717] text-white font-semibold rounded-xl hover:bg-[#374151] transition-all shadow-lg hover:shadow-xl min-h-[52px] text-base">
+             class="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-ink text-white font-semibold rounded-xl hover:bg-muted transition-all shadow-lg hover:shadow-xl min-h-[52px] text-base">
             View My Work
             <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
           </a>
           <a routerLink="/contact"
-             class="inline-flex items-center justify-center gap-2.5 px-8 py-4 border-2 border-[#181717] text-[#181717] font-semibold rounded-xl hover:bg-[#181717] hover:text-white transition-all min-h-[52px] text-base">
+             class="inline-flex items-center justify-center gap-2.5 px-8 py-4 border-2 border-ink text-ink font-semibold rounded-xl hover:bg-ink hover:text-white transition-all min-h-[52px] text-base">
             Let's Talk
             <lucide-icon [img]="MessageSquare" class="w-5 h-5"></lucide-icon>
           </a>
@@ -85,18 +85,18 @@ const TYPING_LINES = [
 
         <!-- Social Links -->
         <div class="flex flex-wrap justify-center gap-3">
-          <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener"
-             class="flex items-center gap-2 px-5 py-2.5 bg-[#181717] text-white text-sm font-medium rounded-lg hover:bg-[#374151] transition-all">
+          <a href="https://github.com/MALULEKE-KS" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2 px-5 py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-muted transition-all">
             <lucide-icon [img]="Github" class="w-4 h-4"></lucide-icon>
             GitHub
           </a>
-          <a href="https://za.linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" rel="noopener"
-             class="flex items-center gap-2 px-5 py-2.5 bg-[#0A66C2] text-white text-sm font-medium rounded-lg hover:bg-[#084c94] transition-all">
+          <a href="https://za.linkedin.com/in/kurhula-success-maluleke-32153231a" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all">
             <lucide-icon [img]="Linkedin" class="w-4 h-4"></lucide-icon>
             LinkedIn
           </a>
           <a href="mailto:kurhula04s@gmail.com"
-             class="flex items-center gap-2 px-5 py-2.5 border-2 border-[#181717]/20 text-[#181717] text-sm font-medium rounded-lg hover:bg-[#181717] hover:text-white transition-all">
+             class="flex items-center gap-2 px-5 py-2.5 border-2 border-ink/20 text-ink text-sm font-medium rounded-lg hover:bg-ink hover:text-white transition-all">
             <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
             Email Me
           </a>
@@ -105,15 +105,15 @@ const TYPING_LINES = [
     </section>
 
     <!-- ═══ AT A GLANCE ═══ -->
-    <section class="py-16 px-6 bg-[#181717] text-white">
+    <section class="py-16 px-6 bg-ink text-white">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-xs font-bold tracking-[0.25em] uppercase text-[#B8860B] mb-8 text-center font-mono">
+        <h2 class="text-xs font-bold tracking-[0.25em] uppercase text-gold mb-8 text-center font-mono">
           At a Glance
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           @for (item of atAGlance; track item.text) {
-            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#B8860B]/40 transition-colors">
-              <lucide-icon [img]="item.icon" class="w-5 h-5 text-[#B8860B] shrink-0 mt-0.5"></lucide-icon>
+            <div class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-gold/40 transition-colors">
+              <lucide-icon [img]="item.icon" class="w-5 h-5 text-gold shrink-0 mt-0.5"></lucide-icon>
               <span class="text-sm text-white/80 text-left leading-relaxed">{{ item.text }}</span>
             </div>
           }
@@ -122,14 +122,14 @@ const TYPING_LINES = [
     </section>
 
     <!-- ═══ WHAT I BUILD ═══ -->
-    <section class="py-20 px-6 bg-[#FAFAF8]">
+    <section class="py-20 px-6 bg-paper">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-[#181717] mb-3">What I Build</h2>
-        <p class="text-[#5a5040] mb-12 text-base">Scalable full-stack systems integrated with AI — across every industry.</p>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-ink mb-3">What I Build</h2>
+        <p class="text-muted mb-12 text-base">Scalable full-stack systems integrated with AI — across every industry.</p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           @for (cap of capabilities; track cap) {
-            <div class="p-5 rounded-xl bg-white border-2 border-[#181717]/10 hover:border-[#B8860B]/40 hover:shadow-lg transition-all text-center group">
-              <span class="text-base font-semibold text-[#181717] group-hover:text-[#B8860B] transition-colors">{{ cap }}</span>
+            <div class="p-5 rounded-xl bg-white border-2 border-ink/10 hover:border-gold/40 hover:shadow-lg transition-all text-center group">
+              <span class="text-base font-semibold text-ink group-hover:text-gold transition-colors">{{ cap }}</span>
             </div>
           }
         </div>
@@ -137,17 +137,17 @@ const TYPING_LINES = [
     </section>
 
     <!-- ═══ CURRENT FOCUS ═══ -->
-    <section class="py-16 px-6 bg-white border-t border-[#181717]/10">
+    <section class="py-16 px-6 bg-white border-t border-ink/10">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-xs font-bold tracking-[0.25em] uppercase text-[#B8860B] mb-8 text-center font-mono">
+        <h2 class="text-xs font-bold tracking-[0.25em] uppercase text-gold mb-8 text-center font-mono">
           Current Focus — Q2 2026
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
           @for (focus of currentFocus; track focus.title) {
-            <div class="p-6 rounded-2xl border-2 border-[#181717]/10 bg-[#FAFAF8] hover:border-[#B8860B]/50 transition-all text-center">
-              <lucide-icon [img]="focus.icon" class="w-8 h-8 text-[#B8860B] mx-auto mb-4"></lucide-icon>
-              <h3 class="font-bold text-[#181717] text-base mb-2">{{ focus.title }}</h3>
-              <p class="text-sm text-[#5a5040] leading-relaxed">{{ focus.desc }}</p>
+            <div class="p-6 rounded-2xl border-2 border-ink/10 bg-paper hover:border-gold/50 transition-all text-center">
+              <lucide-icon [img]="focus.icon" class="w-8 h-8 text-gold mx-auto mb-4"></lucide-icon>
+              <h3 class="font-bold text-ink text-base mb-2">{{ focus.title }}</h3>
+              <p class="text-sm text-muted leading-relaxed">{{ focus.desc }}</p>
             </div>
           }
         </div>
@@ -155,22 +155,22 @@ const TYPING_LINES = [
     </section>
 
     <!-- ═══ LIVE WORK ═══ -->
-    <section class="py-16 px-6 bg-[#181717] text-white">
+    <section class="py-16 px-6 bg-ink text-white">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl font-bold font-serif mb-2">Live Work</h2>
         <p class="text-white/60 text-sm mb-10">Source code and deployed projects.</p>
         <div class="space-y-3 max-w-lg mx-auto">
           @for (work of liveWork; track work.label) {
-            <a [href]="work.href" target="_blank" rel="noopener"
-               class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#B8860B]/40 hover:bg-white/10 transition-all group">
+            <a [href]="work.href" target="_blank" rel="noopener noreferrer"
+               class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-gold/40 hover:bg-white/10 transition-all group">
               <div class="flex items-center gap-3 text-left">
-                <lucide-icon [img]="Globe" class="w-5 h-5 text-[#B8860B]"></lucide-icon>
+                <lucide-icon [img]="Globe" class="w-5 h-5 text-gold"></lucide-icon>
                 <div>
-                  <div class="text-sm font-semibold text-white group-hover:text-[#B8860B] transition-colors">{{ work.label }}</div>
+                  <div class="text-sm font-semibold text-white group-hover:text-gold transition-colors">{{ work.label }}</div>
                   <div class="text-xs text-white/50 font-mono">{{ work.url }}</div>
                 </div>
               </div>
-              <lucide-icon [img]="ExternalLink" class="w-4 h-4 text-white/40 group-hover:text-[#B8860B] transition-colors"></lucide-icon>
+              <lucide-icon [img]="ExternalLink" class="w-4 h-4 text-white/40 group-hover:text-gold transition-colors"></lucide-icon>
             </a>
           }
         </div>
@@ -178,17 +178,17 @@ const TYPING_LINES = [
     </section>
 
     <!-- ═══ CTA STRIP ═══ -->
-    <section class="py-16 px-6 bg-[#B8860B] text-white text-center">
+    <section class="py-16 px-6 bg-gold text-white text-center">
       <div class="max-w-2xl mx-auto">
         <h2 class="text-3xl font-bold font-serif mb-3">Ready to build something?</h2>
         <p class="text-white/80 mb-8 text-base">Open to full-time, contract, and remote opportunities.</p>
         <a routerLink="/contact"
-           class="inline-flex items-center gap-2.5 px-8 py-4 bg-[#181717] text-white font-bold rounded-xl hover:bg-[#374151] transition-all shadow-lg text-base min-h-[52px]">
+           class="inline-flex items-center gap-2.5 px-8 py-4 bg-ink text-white font-bold rounded-xl hover:bg-muted transition-all shadow-lg text-base min-h-[52px]">
           Let's Talk <lucide-icon [img]="ArrowRight" class="w-5 h-5"></lucide-icon>
         </a>
       </div>
     </section>
-  `,
+  `
 })
 export class HomeComponent implements OnInit, OnDestroy {
   readonly Github = Github;

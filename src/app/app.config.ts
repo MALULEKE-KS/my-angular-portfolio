@@ -4,11 +4,12 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { RequestIdInterceptor } from './core/interceptors/request-id.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([RequestIdInterceptor, AuthInterceptor])),
+    provideHttpClient(withInterceptors([RequestIdInterceptor, AuthInterceptor, ErrorInterceptor])),
   ],
 };

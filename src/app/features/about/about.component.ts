@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Bot, Server, Layers, Briefcase, GraduationCap, Award, CheckCircle } from 'lucide-angular';
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
-  template: `
+    selector: 'app-about',
+    imports: [RouterLink, LucideAngularModule],
+    template: `
     <div class="min-h-screen bg-paper">
       <!-- Hero -->
       <section class="min-h-[70vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 bg-gradient-to-b from-amber-50/20 to-paper relative overflow-hidden">
@@ -113,7 +112,7 @@ import { LucideAngularModule, MapPin, Globe, ArrowRight, Code, Cpu, Database, Bo
         </div>
       </section>
     </div>
-  `,
+  `
 })
 export class AboutComponent {
   readonly MapPin = MapPin;

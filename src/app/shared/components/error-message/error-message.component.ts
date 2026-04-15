@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LucideAngularModule, AlertCircle } from 'lucide-angular';
 import { ApiError } from '../../../core/models/api.generated';
 
 @Component({
-  selector: 'app-error-message',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule],
-  template: `
+    selector: 'app-error-message',
+    imports: [LucideAngularModule],
+    template: `
     <div class="flex flex-col items-center gap-4 py-8 text-center">
       <lucide-icon [img]="AlertCircle" class="w-10 h-10 text-red"></lucide-icon>
       <p class="text-lg text-ink font-medium">{{ error?.message || 'Something went wrong.' }}</p>
@@ -16,7 +15,7 @@ import { ApiError } from '../../../core/models/api.generated';
       }
       <p class="text-base text-muted">Please try again.</p>
     </div>
-  `,
+  `
 })
 export class ErrorMessageComponent {
   @Input() error: ApiError | null = null;
