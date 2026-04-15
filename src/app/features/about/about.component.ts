@@ -94,7 +94,7 @@ import { LucideAngularModule, MapPin, GraduationCap, Bot, Code, Server, Database
               Full-stack engineering, AI integration, and production-grade platform development across multiple industries — fintech, healthcare, education, and enterprise.
             </p>
             <div class="flex flex-wrap gap-2 mb-4">
-              @for (tag of ['AI Systems', 'Fintech', 'SaaS', 'Enterprise Automation', 'EdTech', 'GovTech']; track tag) {
+              @for (tag of ['AI-Integrated Systems', 'Fintech', 'SaaS', 'Enterprise Automation', 'EdTech', 'GovTech']; track tag) {
                 <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md font-mono font-medium">{{ tag }}</span>
               }
             </div>

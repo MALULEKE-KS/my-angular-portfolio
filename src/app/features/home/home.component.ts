@@ -38,7 +38,7 @@ const TYPING_LINES = [
           </div>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#181717] mb-4 leading-tight font-serif">
           Software Engineer<br>
-          <span class="text-blue-600">AI Systems Architect</span>
+          <span class="text-blue-600">AI-Integrated Systems</span>
         </h1>
         <p class="text-lg text-[#374151] mb-8 max-w-xl mx-auto leading-relaxed">
           Designing and building practical digital systems that solve real-world challenges.
@@ -140,7 +140,7 @@ const TYPING_LINES = [
               Technology organization. 4 flagship systems in design phase — AI systems, fintech, SaaS, enterprise automation.
             </p>
             <div class="flex flex-wrap gap-2 mb-5">
-              @for (tag of ['AI Systems', 'Fintech', 'SaaS', 'GovTech']; track tag) {
+              @for (tag of ['AI-Integrated Systems', 'Fintech', 'SaaS', 'GovTech']; track tag) {
                 <span class="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-md font-mono font-medium">{{ tag }}</span>
               }
             </div>
